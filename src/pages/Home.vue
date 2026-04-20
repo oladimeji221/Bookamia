@@ -251,46 +251,7 @@ About START -->
 				<!-- Image -->
 				<img src="/assets/images/about/01.jpg" class="rounded-3 position-relative" alt="">
 
-				<!-- Client rating START -->
-				<div class="position-absolute bottom-0 start-0 z-index-1 mb-4 ms-5">
-					<div class="bg-body d-flex d-inline-block rounded-3 position-relative p-3">	
-
-						<!-- Element -->
-						<img src="/assets/images/element/01.svg" class="position-absolute top-0 start-0 translate-middle w-40px" alt="">
-
-						<!-- Avatar group -->
-						<div class="me-4">
-							<h6 class="fw-light">Client</h6>
-							<!-- Avatar group -->
-							<ul class="avatar-group mb-0">
-								<li class="avatar avatar-sm">
-									<img class="avatar-img rounded-circle" src="/assets/images/avatar/01.jpg" alt="avatar">
-								</li>
-								<li class="avatar avatar-sm">
-									<img class="avatar-img rounded-circle" src="/assets/images/avatar/02.jpg" alt="avatar">
-								</li>
-								<li class="avatar avatar-sm">
-									<img class="avatar-img rounded-circle" src="/assets/images/avatar/03.jpg" alt="avatar">
-								</li>
-								<li class="avatar avatar-sm">
-									<img class="avatar-img rounded-circle" src="/assets/images/avatar/04.jpg" alt="avatar">
-								</li>
-								<li class="avatar avatar-sm">
-									<div class="avatar-img rounded-circle bg-primary">
-										<span class="text-white position-absolute top-50 start-50 translate-middle small">1K+</span>
-									</div>
-								</li>
-							</ul>
-						</div>
-
-						<!-- Rating -->
-						<div>
-							<h6 class="fw-light mb-3">Rating</h6>
-							<h6 class="m-0">4.5<i class="fa-solid fa-star text-warning ms-1"></i></h6>
-						</div>
-					</div>
-				</div>
-				<!-- Client rating END -->
+			
 			</div>
 			<!-- Left side END -->
 
