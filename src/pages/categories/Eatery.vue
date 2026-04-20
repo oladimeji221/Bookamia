@@ -1,130 +1,374 @@
 <template>
-  <div class="category-page">
-    <div class="page-header">
+  <div>
+
+    <!-- =======================
+    Main Banner START -->
+    <section class="pt-0">
       <div class="container">
-        <h1>🍽️ Eatery</h1>
-        <p>Discover restaurants and reserve your table</p>
-      </div>
-    </div>
+        <div class="rounded-3 p-3 p-sm-5" style="background-image: url('/assets/images/category/eateries/nkoyo.jpg'); background-position: center center; background-repeat: no-repeat; background-size: cover;">
+          <div class="row my-2 my-xl-5">
+            <div class="col-md-8 mx-auto">
+              <h1 class="text-center text-white">Top Eateries in Nigeria</h1>
+            </div>
+          </div>
 
-    <div class="container content">
-      <div class="filters">
-        <input type="text" v-model="search" placeholder="Search restaurants..." />
-        <select v-model="cuisine">
-          <option value="">All Cuisines</option>
-          <option value="nigerian">Nigerian</option>
-          <option value="continental">Continental</option>
-          <option value="chinese">Chinese</option>
-        </select>
-      </div>
+          <!-- Search form -->
+          <form class="bg-mode shadow rounded-3 position-relative p-4 pe-md-5 pb-5 pb-md-4 mb-4">
+            <div class="row g-4 align-items-center">
+              <!-- Location -->
+              <div class="col-lg-4">
+                <div class="d-flex">
+                  <i class="bi bi-geo-alt fs-3 me-2 mt-2"></i>
+                  <div class="flex-grow-1">
+                    <label class="form-label">City</label>
+                    <select class="form-select" v-model="location">
+                      <option value="">Select city</option>
+                      <option>Lagos</option>
+                      <option>Abuja</option>
+                      <option>Port Harcourt</option>
+                      <option>Ibadan</option>
+                      <option>Kano</option>
+                      <option>Enugu</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
 
-      <div class="listings">
-        <div class="listing-card" v-for="place in eateries" :key="place.id">
-          <div class="card-img">{{ place.image }}</div>
-          <div class="card-body">
-            <h3>{{ place.name }}</h3>
-            <p class="location">📍 {{ place.location }}</p>
-            <p class="cuisine-tag">{{ place.cuisine }}</p>
-            <div class="rating">⭐ {{ place.rating }} · {{ place.reviews }} reviews</div>
-            <div class="footer">
-              <span class="price">Avg: <strong>₦{{ place.avgPrice.toLocaleString() }}</strong></span>
-              <button class="btn-book">Reserve</button>
+              <!-- Cuisine -->
+              <div class="col-lg-4">
+                <div class="d-flex">
+                  <i class="bi bi-egg-fried fs-3 me-2 mt-2"></i>
+                  <div class="flex-grow-1">
+                    <label class="form-label">Cuisine Type</label>
+                    <select class="form-select" v-model="cuisine">
+                      <option value="">All Cuisines</option>
+                      <option>Nigerian</option>
+                      <option>Continental</option>
+                      <option>Fast Food</option>
+                      <option>Fine Dining</option>
+                      <option>Seafood</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Date -->
+              <div class="col-lg-4">
+                <div class="d-flex">
+                  <i class="bi bi-calendar fs-3 me-2 mt-2"></i>
+                  <div class="flex-grow-1">
+                    <label class="form-label">Reservation Date</label>
+                    <input type="text" class="form-control" ref="dateInput" placeholder="Select date" readonly>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="btn-position-md-middle">
+              <button type="button" class="icon-lg btn btn-round btn-primary mb-0"><i class="bi bi-search fa-fw"></i></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <!-- =======================
+    Main Banner END -->
+
+    <!-- =======================
+    Recent Searches START -->
+    <section class="pt-4 pb-0" v-if="recentSearches.length">
+      <div class="container">
+        <div class="row g-2 align-items-center">
+          <div class="col-lg-2">
+            <h5 class="mb-0">Recent Searches</h5>
+          </div>
+          <div class="col-lg-10">
+            <div class="hstack flex-wrap gap-2">
+              <div class="alert bg-light fade show small px-3 py-1 mb-0" role="alert" v-for="(item, i) in recentSearches" :key="i">
+                <span class="me-1">{{ item }}</span>
+                <button type="button" class="btn-close small p-2" @click="recentSearches.splice(i, 1)"></button>
+              </div>
+              <button type="button" class="btn btn-sm btn-primary-soft mb-0" @click="recentSearches = []">Clear all</button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
+    <!-- =======================
+    Recent Searches END -->
+
+    <!-- =======================
+    Eatery list START -->
+    <section class="pt-0">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="hstack gap-3 justify-content-between justify-content-md-end mt-3">
+              <button class="btn btn-primary-soft mb-0 d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEateryFilters">
+                <i class="fa-solid fa-sliders-h me-1"></i> Show filters
+              </button>
+              <span class="text-muted small">{{ eateries.length }} eateries found</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Sidebar START -->
+          <aside class="col-xl-4 col-xxl-3">
+            <div class="offcanvas-xl offcanvas-end" tabindex="-1" id="offcanvasEateryFilters">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Advance Filters</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasEateryFilters"></button>
+              </div>
+              <div class="offcanvas-body flex-column p-3 p-xl-0">
+                <form class="rounded-3 shadow">
+
+                  <!-- Cuisine Type -->
+                  <div class="card card-body rounded-0 rounded-top p-4">
+                    <h6 class="mb-2">Cuisine Type</h6>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="cu1"><label class="form-check-label" for="cu1">Nigerian</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="cu2"><label class="form-check-label" for="cu2">Continental</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="cu3"><label class="form-check-label" for="cu3">Fast Food</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="cu4"><label class="form-check-label" for="cu4">Fine Dining</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="cu5"><label class="form-check-label" for="cu5">Seafood</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="cu6"><label class="form-check-label" for="cu6">Grill & BBQ</label></div>
+                  </div>
+
+                  <hr class="my-0">
+
+                  <!-- Average Price -->
+                  <div class="card card-body rounded-0 p-4">
+                    <h6 class="mb-2">Average Spend</h6>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="ep1"><label class="form-check-label" for="ep1">Under ₦5,000</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="ep2"><label class="form-check-label" for="ep2">₦5,000 – ₦15,000</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="ep3"><label class="form-check-label" for="ep3">₦15,000 – ₦30,000</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="ep4"><label class="form-check-label" for="ep4">₦30,000+</label></div>
+                  </div>
+
+                  <hr class="my-0">
+
+                  <!-- Dining Style -->
+                  <div class="card card-body rounded-0 p-4">
+                    <h6 class="mb-2">Dining Style</h6>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="ds1"><label class="form-check-label" for="ds1">Dine-in</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="ds2"><label class="form-check-label" for="ds2">Takeaway</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="ds3"><label class="form-check-label" for="ds3">Delivery</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="ds4"><label class="form-check-label" for="ds4">Outdoor Seating</label></div>
+                  </div>
+
+                  <hr class="my-0">
+
+                  <!-- Customer Rating -->
+                  <div class="card card-body rounded-0 rounded-bottom p-4">
+                    <h6 class="mb-2">Customer Rating</h6>
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item mb-1"><input type="checkbox" class="btn-check" id="er1"><label class="btn btn-sm btn-light" for="er1">3+</label></li>
+                      <li class="list-inline-item mb-1"><input type="checkbox" class="btn-check" id="er2"><label class="btn btn-sm btn-light" for="er2">3.5+</label></li>
+                      <li class="list-inline-item mb-1"><input type="checkbox" class="btn-check" id="er3"><label class="btn btn-sm btn-light" for="er3">4+</label></li>
+                      <li class="list-inline-item mb-1"><input type="checkbox" class="btn-check" id="er4"><label class="btn btn-sm btn-light" for="er4">4.5+</label></li>
+                    </ul>
+                  </div>
+
+                </form>
+                <div class="d-flex justify-content-between p-2 p-xl-0 mt-xl-4">
+                  <button class="btn btn-link p-0 mb-0">Clear all</button>
+                  <button class="btn btn-primary mb-0">Filter Result</button>
+                </div>
+              </div>
+            </div>
+          </aside>
+          <!-- Sidebar END -->
+
+          <!-- Main content START -->
+          <div class="col-xl-8 col-xxl-9">
+            <div class="vstack gap-4">
+
+              <div class="card shadow p-2" v-for="place in paginatedEateries" :key="place.id">
+                <div class="row g-0">
+                  <!-- Image -->
+                  <div class="col-md-5 position-relative">
+                    <span class="badge text-bg-success position-absolute top-0 start-0 m-2 z-1">Open</span>
+                    <img :src="place.image" class="card-img rounded-2" :alt="place.name" style="height: 100%; min-height: 200px; object-fit: cover;">
+                  </div>
+                  <!-- Body -->
+                  <div class="col-md-7">
+                    <div class="card-body py-md-2 d-flex flex-column h-100">
+                      <!-- Rating stars -->
+                      <div class="d-flex justify-content-between align-items-center">
+                        <ul class="list-inline mb-0">
+                          <li class="list-inline-item me-0 small"><i class="fa-solid fa-star text-warning"></i></li>
+                          <li class="list-inline-item me-0 small"><i class="fa-solid fa-star text-warning"></i></li>
+                          <li class="list-inline-item me-0 small"><i class="fa-solid fa-star text-warning"></i></li>
+                          <li class="list-inline-item me-0 small"><i class="fa-solid fa-star text-warning"></i></li>
+                          <li class="list-inline-item me-0 small"><i class="fa-solid fa-star-half-alt text-warning"></i></li>
+                          <li class="list-inline-item ms-1 small fw-bold">{{ place.rating }}</li>
+                        </ul>
+                        <span class="badge text-bg-warning">{{ place.cuisine }}</span>
+                      </div>
+                      <!-- Name -->
+                      <h5 class="card-title mb-1 mt-2">
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">{{ place.name }}</a>
+                      </h5>
+                      <small><i class="bi bi-geo-alt me-2"></i>{{ place.location }}</small>
+                      <!-- Tags -->
+                      <ul class="nav nav-divider mt-3">
+                        <li class="nav-item" v-for="tag in place.tags" :key="tag">{{ tag }}</li>
+                      </ul>
+                      <!-- Info -->
+                      <ul class="list-group list-group-borderless small mb-0 mt-2">
+                        <li class="list-group-item d-flex text-success p-0">
+                          <i class="bi bi-clock me-2"></i>{{ place.hours }}
+                        </li>
+                        <li class="list-group-item d-flex p-0 text-muted">
+                          <i class="bi bi-telephone me-2"></i>{{ place.phone }}
+                        </li>
+                      </ul>
+                      <!-- Price + Button -->
+                      <div class="d-sm-flex justify-content-sm-between align-items-center mt-3 mt-md-auto">
+                        <div>
+                          <span class="text-muted small">Avg spend: </span>
+                          <span class="fw-bold">₦{{ place.avgPrice.toLocaleString() }}</span>
+                        </div>
+                        <div class="mt-3 mt-sm-0">
+                          <a href="#" class="btn btn-sm btn-dark mb-0 w-100" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Reserve Table</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Pagination -->
+            <nav class="mt-5" v-if="totalPages > 1">
+              <ul class="pagination pagination-sm justify-content-center">
+                <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                  <a class="page-link" href="#" @click.prevent="currentPage--">
+                    <i class="bi bi-chevron-left"></i>
+                  </a>
+                </li>
+                <li class="page-item" v-for="n in totalPages" :key="n" :class="{ active: currentPage === n }">
+                  <a class="page-link" href="#" @click.prevent="currentPage = n">{{ n }}</a>
+                </li>
+                <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                  <a class="page-link" href="#" @click.prevent="currentPage++">
+                    <i class="bi bi-chevron-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+
+          </div>
+          <!-- Main content END -->
+        </div>
+      </div>
+    </section>
+    <!-- =======================
+    Eatery list END -->
+
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
-const search = ref('')
+const location = ref('')
 const cuisine = ref('')
+const date = ref('')
+const dateInput = ref(null)
+const currentPage = ref(1)
+const perPage = 4
+const recentSearches = ref(['Mama Cass Restaurant', 'Yellow Chilli Abuja', 'Buka Express Lagos', 'Nkoyo Fine Dining', 'Sweet Sensation Ikeja'])
+
+onMounted(() => {
+  if (window.flatpickr && dateInput.value) {
+    window.flatpickr(dateInput.value, {
+      dateFormat: 'M j, Y',
+      minDate: 'today',
+      onChange(selectedDates, dateStr) { date.value = dateStr },
+    })
+  }
+})
 
 const eateries = [
-  { id: 1, name: 'Mama Cass Restaurant', location: 'Lagos, Nigeria', cuisine: 'Nigerian', rating: 4.7, reviews: 520, avgPrice: 8000, image: '🍲' },
-  { id: 2, name: 'The Bistro', location: 'Abuja, Nigeria', cuisine: 'Continental', rating: 4.5, reviews: 310, avgPrice: 15000, image: '🥘' },
-  { id: 3, name: 'Golden Dragon', location: 'Lagos, Nigeria', cuisine: 'Chinese', rating: 4.4, reviews: 220, avgPrice: 12000, image: '🍜' },
-  { id: 4, name: 'Suya Spot', location: 'Kano, Nigeria', cuisine: 'Nigerian', rating: 4.6, reviews: 405, avgPrice: 5000, image: '🍖' },
+  {
+    id: 1,
+    name: 'Buka Express Lagos',
+    location: 'Victoria Island, Lagos',
+    cuisine: 'Nigerian',
+    rating: 4.7,
+    avgPrice: 8000,
+    tags: ['Dine-in', 'Takeaway', 'Outdoor'],
+    hours: 'Open 8am – 10pm',
+    phone: '+234 (0) 801 234 5678',
+    image: '/assets/images/category/eateries/buka.webp',
+  },
+  {
+    id: 2,
+    name: 'Mama Cass Restaurant',
+    location: 'GRA, Port Harcourt',
+    cuisine: 'Nigerian',
+    rating: 4.8,
+    avgPrice: 12000,
+    tags: ['Dine-in', 'Delivery', 'Private Dining'],
+    hours: 'Open 9am – 11pm',
+    phone: '+234 (0) 803 456 7890',
+    image: '/assets/images/category/eateries/mamacass.jpeg',
+  },
+  {
+    id: 3,
+    name: 'Yellow Chilli Abuja',
+    location: 'Wuse II, Abuja',
+    cuisine: 'Fine Dining',
+    rating: 4.6,
+    avgPrice: 25000,
+    tags: ['Dine-in', 'Bar', 'Outdoor'],
+    hours: 'Open 12pm – 11pm',
+    phone: '+234 (0) 805 678 9012',
+    image: '/assets/images/category/eateries/yellowchilli.jpg',
+  },
+  {
+    id: 4,
+    name: 'The Place Restaurant',
+    location: 'Lekki Phase 1, Lagos',
+    cuisine: 'Nigerian',
+    rating: 4.5,
+    avgPrice: 10000,
+    tags: ['Dine-in', 'Takeaway', 'Delivery'],
+    hours: 'Open 7am – 10pm',
+    phone: '+234 (0) 807 890 1234',
+    image: '/assets/images/category/eateries/the_place.jpg',
+  },
+  {
+    id: 5,
+    name: 'Nkoyo Fine Dining',
+    location: 'Garki, Abuja',
+    cuisine: 'Fine Dining',
+    rating: 4.9,
+    avgPrice: 35000,
+    tags: ['Dine-in', 'Private Events', 'Bar'],
+    hours: 'Open 12pm – 12am',
+    phone: '+234 (0) 809 012 3456',
+    image: '/assets/images/category/eateries/nkoyo.jpg',
+  },
+  {
+    id: 6,
+    name: 'Sweet Sensation',
+    location: 'Ikeja, Lagos',
+    cuisine: 'Fast Food',
+    rating: 4.3,
+    avgPrice: 4000,
+    tags: ['Dine-in', 'Takeaway', 'Delivery'],
+    hours: 'Open 7am – 9pm',
+    phone: '+234 (0) 804 567 8901',
+    image: '/assets/images/category/eateries/sweet_sensation.png',
+  },
 ]
+
+const totalPages = computed(() => Math.ceil(eateries.length / perPage))
+
+const paginatedEateries = computed(() => {
+  const start = (currentPage.value - 1) * perPage
+  return eateries.slice(start, start + perPage)
+})
 </script>
-
-<style scoped>
-.category-page { min-height: 100vh; }
-
-.page-header {
-  background: linear-gradient(135deg, #b45309, #f59e0b);
-  color: #fff;
-  padding: 3rem 1.5rem;
-}
-
-.page-header h1 { font-size: 2rem; font-weight: 800; }
-.page-header p { color: #fef3c7; margin-top: 0.5rem; }
-
-.container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
-.content { padding-top: 2rem; padding-bottom: 4rem; }
-
-.filters { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
-
-.filters input,
-.filters select {
-  padding: 0.65rem 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  outline: none;
-}
-
-.filters input { flex: 1; min-width: 200px; }
-
-.listings {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.5rem;
-}
-
-.listing-card {
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #fff;
-  transition: box-shadow 0.2s;
-}
-
-.listing-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
-
-.card-img {
-  height: 140px;
-  background: #fffbeb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3.5rem;
-}
-
-.card-body { padding: 1.25rem; }
-.card-body h3 { font-weight: 700; color: #111827; }
-.location { font-size: 0.85rem; color: #6b7280; margin: 0.35rem 0 0.25rem; }
-.cuisine-tag { font-size: 0.75rem; background: #fef3c7; color: #92400e; padding: 0.2rem 0.5rem; border-radius: 4px; display: inline-block; margin-bottom: 0.5rem; }
-.rating { font-size: 0.85rem; color: #374151; margin-bottom: 1rem; }
-
-.footer { display: flex; align-items: center; justify-content: space-between; }
-.price { font-size: 0.9rem; color: #374151; }
-.price strong { color: #111827; font-size: 1rem; }
-
-.btn-book {
-  padding: 0.5rem 1rem;
-  background: #f59e0b;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.btn-book:hover { background: #d97706; }
-</style>

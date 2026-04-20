@@ -2,103 +2,10 @@
   <div>
     <main>
     <Hero />
-    <!-- =======================
-Best deal START -->
-<section class="pb-2 pb-lg-5">
-	<div class="container">
-		<!-- Slider START -->
-		<div class="tiny-slider arrow-round arrow-blur arrow-hover">
-			<div class="tiny-slider-inner" data-autoplay="true" data-arrow="true" data-edge="2" data-dots="false" data-items-xl="3" data-items-lg="2" data-items-md="1">
-				<!-- Slider item -->
-				<div>
-					<div class="card border rounded-3 overflow-hidden">
-						<div class="row g-0 align-items-center">
-							<!-- Image -->
-							<div class="col-sm-6">
-								<img src="/assets/images/offer/01.jpg" class="card-img rounded-0" alt="">
-							</div>
-
-							<!-- Title and content -->
-							<div class="col-sm-6">
-								<div class="card-body px-3">
-									<h6 class="card-title"><a href="#" class="stretched-link">Free Night Stay for Lucky Winners</a></h6>
-									<p class="mb-0">Valid till: 31 Dec</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Slider item -->
-				<div>
-					<div class="card border rounded-3 overflow-hidden">
-						<div class="row g-0 align-items-center">
-							<!-- Image -->
-							<div class="col-sm-6">
-								<img src="/assets/images/offer/04.jpg" class="card-img rounded-0" alt="">
-							</div>
-
-							<!-- Title and content -->
-							<div class="col-sm-6">
-								<div class="card-body px-3">
-									<h6 class="card-title"><a href="#" class="stretched-link">Up to 40% OFF Hotel Bookings</a></h6>
-									<p class="mb-0">Book any hotel across Nigeria</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Slider item -->
-				<div>
-					<div class="card border rounded-3 overflow-hidden">
-						<div class="row g-0 align-items-center">
-							<!-- Image -->
-							<div class="col-sm-6">
-								<img src="/assets/images/offer/03.jpg" class="card-img rounded-0" alt="">
-							</div>
-
-							<!-- Title and content -->
-							<div class="col-sm-6">
-								<div class="card-body px-3">
-									<h6 class="card-title"><a href="#" class="stretched-link">Book &amp; Enjoy Your Weekend</a></h6>
-									<p class="mb-0">20% off select hotels this weekend</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Slider item -->
-				<div>
-					<div class="card border rounded-3 overflow-hidden">
-						<div class="row g-0 align-items-center">
-							<!-- Image -->
-							<div class="col-sm-6">
-								<img src="/assets/images/offer/02.jpg" class="card-img rounded-0" alt="">
-							</div>
-
-							<!-- Title and content -->
-							<div class="col-sm-6">
-								<div class="card-body px-3">
-									<h6 class="card-title"><a href="#" class="stretched-link">Movie Night Deal</a></h6>
-									<p class="mb-0">Buy 2 movie tickets, get 1 free</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>	
-		<!-- Slider END -->
-	</div>
-</section>
-<!-- =======================
-Best deal END -->
 
 <!-- =======================
 About START -->
-<section class="pb-0 pb-xl-5">
+<section class="pb-0 pb-xl-5 mt-5">
 	<div class="container">
 		<div class="row g-4 justify-content-between align-items-center">
 			<!-- Left side START -->
@@ -459,7 +366,7 @@ Featured Hotels START -->
 					<!-- Card body -->
 					<div class="card-body px-2">
 						<!-- Title -->
-						<h5 class="card-title"><a href="#" class="stretched-link">Eko Hotels &amp; Suites</a></h5>
+						<h5 class="card-title"><a href="#" class="stretched-link" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Eko Hotels &amp; Suites</a></h5>
 						<!-- Price and rating -->
 						<div class="d-flex justify-content-between align-items-center">
 							<h6 class="text-success mb-0">₦45,000 <small class="fw-light">/starting at</small> </h6>
@@ -487,7 +394,7 @@ Featured Hotels START -->
 					<!-- Card body -->
 					<div class="card-body px-2">
 						<!-- Title -->
-						<h5 class="card-title"><a href="#" class="stretched-link">Transcorp Hilton</a></h5>
+						<h5 class="card-title"><a href="#" class="stretched-link" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Transcorp Hilton</a></h5>
 						<!-- Price and rating -->
 						<div class="d-flex justify-content-between align-items-center">
 							<h6 class="text-success mb-0">₦85,000 <small class="fw-light">/starting at</small> </h6>
@@ -515,7 +422,7 @@ Featured Hotels START -->
 					<!-- Card body -->
 					<div class="card-body px-2">
 						<!-- Title -->
-						<h5 class="card-title"><a href="#" class="stretched-link">Novotel Port Harcourt</a></h5>
+						<h5 class="card-title"><a href="#" class="stretched-link" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Novotel Port Harcourt</a></h5>
 						<!-- Price and rating -->
 						<div class="d-flex justify-content-between align-items-center">
 							<h6 class="text-success mb-0">₦38,500 <small class="fw-light">/starting at</small> </h6>
@@ -543,7 +450,7 @@ Featured Hotels START -->
 					<!-- Card body -->
 					<div class="card-body px-2">
 						<!-- Title -->
-						<h5 class="card-title"><a href="#" class="stretched-link">Premier Hotel Ibadan</a></h5>
+						<h5 class="card-title"><a href="#" class="stretched-link" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Premier Hotel Ibadan</a></h5>
 						<!-- Price and rating -->
 						<div class="d-flex justify-content-between align-items-center">
 							<h6 class="text-success mb-0">₦22,000 <small class="fw-light">/starting at</small> </h6>
@@ -560,6 +467,227 @@ Featured Hotels START -->
 Featured Hotels END -->
 
 
+
+<!-- =======================
+Top Eateries START -->
+<section class="pt-0 pt-sm-5">
+	<div class="container">
+		<!-- Title -->
+		<div class="row mb-4 mb-sm-5">
+			<div class="col-12 text-center">
+				<h2 class="mb-0">Top Eateries in Nigeria</h2>
+				<p class="mb-0">Discover the finest restaurants and local spots serving authentic Nigerian cuisine near you.</p>
+			</div>
+		</div>
+
+		<div class="row g-4">
+			<!-- Card item -->
+			<div class="col-sm-6 col-lg-4 col-xl-3">
+				<div class="card shadow h-100">
+					<div class="position-relative">
+						<img src="/assets/images/category/eateries/buka.webp" class="card-img-top" alt="Buka Express" style="height:220px; object-fit:cover;">
+						<div class="card-img-overlay p-3 z-index-1">
+							<div class="badge text-bg-dark"><i class="fa-solid fa-utensils fa-fw text-warning"></i> Nigerian</div>
+							<div class="badge text-bg-success">Open</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<h5 class="card-title me-2"><a href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Buka Express Lagos</a></h5>
+						<ul class="list-group list-group-borderless mb-0">
+							<li class="list-group-item small pb-0"><i class="bi bi-pin-map-fill fa-fw h6 small mb-0"></i> Victoria Island, Lagos</li>
+							<li class="list-group-item small pb-0"><i class="bi bi-telephone-fill fa-fw h6 small mb-0"></i> +234 (0) 801 234 5678</li>
+						</ul>
+					</div>
+					<div class="card-footer border-top">
+						<div class="d-flex justify-content-between align-items-center">
+							<a href="#" class="btn btn-link p-0 mb-0" data-bs-toggle="modal" data-bs-target="#comingSoonModal">View detail<i class="bi bi-arrow-right ms-1"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Card item -->
+			<div class="col-sm-6 col-lg-4 col-xl-3">
+				<div class="card shadow h-100">
+					<div class="position-relative">
+						<img src="/assets/images/category/eateries/mamacass.jpeg" class="card-img-top" alt="Mama Cass" style="height:220px; object-fit:cover;">
+						<div class="card-img-overlay p-3 z-index-1">
+							<div class="badge text-bg-dark"><i class="fa-solid fa-bowl-food fa-fw text-warning"></i> Local Cuisine</div>
+							<div class="badge text-bg-success">Open</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="badge bg-danger bg-opacity-10 text-danger mb-2">Recommended</div>
+						<h5 class="card-title me-2"><a href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Mama Cass Restaurant</a></h5>
+						<ul class="list-group list-group-borderless mb-0">
+							<li class="list-group-item small pb-0"><i class="bi bi-pin-map-fill fa-fw h6 small mb-0"></i> GRA, Port Harcourt</li>
+							<li class="list-group-item small pb-0"><i class="bi bi-telephone-fill fa-fw h6 small mb-0"></i> +234 (0) 803 456 7890</li>
+						</ul>
+					</div>
+					<div class="card-footer border-top">
+						<div class="d-flex justify-content-between align-items-center">
+							<a href="#" class="btn btn-link p-0 mb-0" data-bs-toggle="modal" data-bs-target="#comingSoonModal">View detail<i class="bi bi-arrow-right ms-1"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Card item -->
+			<div class="col-sm-6 col-lg-4 col-xl-3">
+				<div class="card shadow h-100">
+					<div class="position-relative">
+						<img src="/assets/images/category/eateries/yellowchilli.jpg" class="card-img-top" alt="Yellow Chilli" style="height:220px; object-fit:cover;">
+						<div class="card-img-overlay p-3 z-index-1">
+							<div class="badge text-bg-dark"><i class="fa-solid fa-fire-flame-curved fa-fw text-warning"></i> Spicy</div>
+							<div class="badge text-bg-success">Open</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<h5 class="card-title me-2"><a href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Yellow Chilli Abuja</a></h5>
+						<ul class="list-group list-group-borderless mb-0">
+							<li class="list-group-item small pb-0"><i class="bi bi-pin-map-fill fa-fw h6 small mb-0"></i> Wuse II, Abuja</li>
+							<li class="list-group-item small pb-0"><i class="bi bi-telephone-fill fa-fw h6 small mb-0"></i> +234 (0) 805 678 9012</li>
+						</ul>
+					</div>
+					<div class="card-footer border-top">
+						<div class="d-flex justify-content-between align-items-center">
+							<a href="#" class="btn btn-link p-0 mb-0" data-bs-toggle="modal" data-bs-target="#comingSoonModal">View detail<i class="bi bi-arrow-right ms-1"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Card item -->
+			<div class="col-sm-6 col-lg-4 col-xl-3">
+				<div class="card shadow h-100">
+					<div class="position-relative">
+						<img src="/assets/images/category/eateries/the_place.jpg" class="card-img-top" alt="The Place" style="height:220px; object-fit:cover;">
+						<div class="card-img-overlay p-3 z-index-1">
+							<div class="badge text-bg-dark"><i class="fa-solid fa-champagne-glasses fa-fw text-warning"></i> Restaurant</div>
+							<div class="badge text-bg-success">Open</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="badge bg-danger bg-opacity-10 text-danger mb-2">Recommended</div>
+						<h5 class="card-title me-2"><a href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">The Place Restaurant</a></h5>
+						<ul class="list-group list-group-borderless mb-0">
+							<li class="list-group-item small pb-0"><i class="bi bi-pin-map-fill fa-fw h6 small mb-0"></i> Lekki Phase 1, Lagos</li>
+							<li class="list-group-item small pb-0"><i class="bi bi-telephone-fill fa-fw h6 small mb-0"></i> +234 (0) 807 890 1234</li>
+						</ul>
+					</div>
+					<div class="card-footer border-top">
+						<div class="d-flex justify-content-between align-items-center">
+							<a href="#" class="btn btn-link p-0 mb-0" data-bs-toggle="modal" data-bs-target="#comingSoonModal">View detail<i class="bi bi-arrow-right ms-1"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Card item -->
+			<div class="col-sm-6 col-lg-4 col-xl-3">
+				<div class="card shadow h-100">
+					<div class="position-relative">
+						<img src="/assets/images/category/eateries/nkoyo.jpg" class="card-img-top" alt="Nkoyo" style="height:220px; object-fit:cover;">
+						<div class="card-img-overlay p-3 z-index-1">
+							<div class="badge text-bg-dark"><i class="fa-solid fa-utensils fa-fw text-warning"></i> Fine Dining</div>
+							<div class="badge text-bg-success">Open</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<h5 class="card-title me-2"><a href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Nkoyo Fine Dining</a></h5>
+						<ul class="list-group list-group-borderless mb-0">
+							<li class="list-group-item small pb-0"><i class="bi bi-pin-map-fill fa-fw h6 small mb-0"></i> Garki, Abuja</li>
+							<li class="list-group-item small pb-0"><i class="bi bi-telephone-fill fa-fw h6 small mb-0"></i> +234 (0) 809 012 3456</li>
+						</ul>
+					</div>
+					<div class="card-footer border-top">
+						<div class="d-flex justify-content-between align-items-center">
+							<a href="#" class="btn btn-link p-0 mb-0" data-bs-toggle="modal" data-bs-target="#comingSoonModal">View detail<i class="bi bi-arrow-right ms-1"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Card item -->
+			<div class="col-sm-6 col-lg-4 col-xl-3">
+				<div class="card shadow h-100">
+					<div class="position-relative">
+						<img src="/assets/images/category/eateries/jevinik.jpg" class="card-img-top" alt="Jevinik" style="height:220px; object-fit:cover;">
+						<div class="card-img-overlay p-3 z-index-1">
+							<div class="badge text-bg-dark"><i class="fa-solid fa-bowl-food fa-fw text-warning"></i> Nigerian</div>
+							<div class="badge text-bg-success">Open</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<h5 class="card-title me-2"><a href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Jevinik Restaurant</a></h5>
+						<ul class="list-group list-group-borderless mb-0">
+							<li class="list-group-item small pb-0"><i class="bi bi-pin-map-fill fa-fw h6 small mb-0"></i> Marina, Lagos Island</li>
+							<li class="list-group-item small pb-0"><i class="bi bi-telephone-fill fa-fw h6 small mb-0"></i> +234 (0) 802 345 6789</li>
+						</ul>
+					</div>
+					<div class="card-footer border-top">
+						<div class="d-flex justify-content-between align-items-center">
+							<a href="#" class="btn btn-link p-0 mb-0" data-bs-toggle="modal" data-bs-target="#comingSoonModal">View detail<i class="bi bi-arrow-right ms-1"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Card item -->
+			<div class="col-sm-6 col-lg-4 col-xl-3">
+				<div class="card shadow h-100">
+					<div class="position-relative">
+						<img src="/assets/images/category/eateries/sweet_sensation.png" class="card-img-top" alt="Sweet Sensation" style="height:220px; object-fit:cover;">
+						<div class="card-img-overlay p-3 z-index-1">
+							<div class="badge text-bg-dark"><i class="fa-solid fa-burger fa-fw text-warning"></i> Fast Food</div>
+							<div class="badge text-bg-success">Open</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="badge bg-danger bg-opacity-10 text-danger mb-2">Recommended</div>
+						<h5 class="card-title me-2"><a href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Sweet Sensation</a></h5>
+						<ul class="list-group list-group-borderless mb-0">
+							<li class="list-group-item small pb-0"><i class="bi bi-pin-map-fill fa-fw h6 small mb-0"></i> Ikeja, Lagos</li>
+							<li class="list-group-item small pb-0"><i class="bi bi-telephone-fill fa-fw h6 small mb-0"></i> +234 (0) 804 567 8901</li>
+						</ul>
+					</div>
+					<div class="card-footer border-top">
+						<div class="d-flex justify-content-between align-items-center">
+							<a href="#" class="btn btn-link p-0 mb-0" data-bs-toggle="modal" data-bs-target="#comingSoonModal">View detail<i class="bi bi-arrow-right ms-1"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Card item -->
+			<div class="col-sm-6 col-lg-4 col-xl-3">
+				<div class="card shadow h-100">
+					<div class="position-relative">
+						<img src="/assets/images/category/eateries/chicken_republic.jpg" class="card-img-top" alt="Chicken Republic" style="height:220px; object-fit:cover;">
+						<div class="card-img-overlay p-3 z-index-1">
+							<div class="badge text-bg-dark"><i class="fa-solid fa-drumstick-bite fa-fw text-warning"></i> Fast Food</div>
+							<div class="badge text-bg-success">Open</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<h5 class="card-title me-2"><a href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Chicken Republic</a></h5>
+						<ul class="list-group list-group-borderless mb-0">
+							<li class="list-group-item small pb-0"><i class="bi bi-pin-map-fill fa-fw h6 small mb-0"></i> Maitama, Abuja</li>
+							<li class="list-group-item small pb-0"><i class="bi bi-telephone-fill fa-fw h6 small mb-0"></i> +234 (0) 806 789 0123</li>
+						</ul>
+					</div>
+					<div class="card-footer border-top">
+						<div class="d-flex justify-content-between align-items-center">
+							<a href="#" class="btn btn-link p-0 mb-0" data-bs-toggle="modal" data-bs-target="#comingSoonModal">View detail<i class="bi bi-arrow-right ms-1"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- =======================
+Top Eateries END -->
 
  <Testimonial />
 

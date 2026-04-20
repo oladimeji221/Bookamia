@@ -1,142 +1,345 @@
 <template>
-  <div class="category-page">
-    <div class="page-header">
+  <div>
+
+    <!-- =======================
+    Main Banner START -->
+    <section class="pt-0">
       <div class="container">
-        <h1>🎬 Movies</h1>
-        <p>Check showtimes and book your cinema tickets</p>
-      </div>
-    </div>
+        <div class="rounded-3 p-3 p-sm-5" style="background-image: url('/assets/images/category/movie/cinema.jpg'); background-position: center center; background-repeat: no-repeat; background-size: cover;">
+          <div class="row my-2 my-xl-5">
+            <div class="col-md-8 mx-auto">
+              <h1 class="text-center text-white">Now Showing in Nigeria</h1>
+            </div>
+          </div>
 
-    <div class="container content">
-      <div class="filters">
-        <input type="text" v-model="search" placeholder="Search movies..." />
-        <select v-model="genre">
-          <option value="">All Genres</option>
-          <option value="action">Action</option>
-          <option value="drama">Drama</option>
-          <option value="comedy">Comedy</option>
-          <option value="nollywood">Nollywood</option>
-        </select>
-      </div>
+          <!-- Search form -->
+          <form class="bg-mode shadow rounded-3 position-relative p-4 pe-md-5 pb-5 pb-md-4 mb-4">
+            <div class="row g-4 align-items-center">
+              <!-- City -->
+              <div class="col-lg-4">
+                <div class="d-flex">
+                  <i class="bi bi-geo-alt fs-3 me-2 mt-2"></i>
+                  <div class="flex-grow-1">
+                    <label class="form-label">City</label>
+                    <select class="form-select" v-model="city">
+                      <option value="">Select city</option>
+                      <option>Lagos</option>
+                      <option>Abuja</option>
+                      <option>Port Harcourt</option>
+                      <option>Ibadan</option>
+                      <option>Enugu</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
 
-      <div class="listings">
-        <div class="listing-card" v-for="movie in movies" :key="movie.id">
-          <div class="card-img">{{ movie.image }}</div>
-          <div class="card-body">
-            <span class="genre-tag">{{ movie.genre }}</span>
-            <h3>{{ movie.title }}</h3>
-            <p class="cinema">🎥 {{ movie.cinema }}</p>
-            <p class="showtimes">
-              <span v-for="time in movie.showtimes" :key="time" class="time-pill">{{ time }}</span>
-            </p>
-            <div class="footer">
-              <span class="price"><strong>₦{{ movie.price.toLocaleString() }}</strong></span>
-              <button class="btn-book">Buy Ticket</button>
+              <!-- Date -->
+              <div class="col-lg-4">
+                <div class="d-flex">
+                  <i class="bi bi-calendar fs-3 me-2 mt-2"></i>
+                  <div class="flex-grow-1">
+                    <label class="form-label">Show Date</label>
+                    <input type="text" class="form-control" ref="dateInput" placeholder="Select date" readonly>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Genre -->
+              <div class="col-lg-4">
+                <div class="d-flex">
+                  <i class="bi bi-film fs-3 me-2 mt-2"></i>
+                  <div class="flex-grow-1">
+                    <label class="form-label">Genre</label>
+                    <select class="form-select" v-model="genre">
+                      <option value="">All Genres</option>
+                      <option>Action</option>
+                      <option>Drama</option>
+                      <option>Comedy</option>
+                      <option>Nollywood</option>
+                      <option>Thriller</option>
+                      <option>Animation</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="btn-position-md-middle">
+              <button type="button" class="icon-lg btn btn-round btn-primary mb-0"><i class="bi bi-search fa-fw"></i></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <!-- =======================
+    Main Banner END -->
+
+    <!-- =======================
+    Recent Searches START -->
+    <section class="pt-4 pb-0" v-if="recentSearches.length">
+      <div class="container">
+        <div class="row g-2 align-items-center">
+          <div class="col-lg-2">
+            <h5 class="mb-0">Recent Searches</h5>
+          </div>
+          <div class="col-lg-10">
+            <div class="hstack flex-wrap gap-2">
+              <div class="alert bg-light fade show small px-3 py-1 mb-0" role="alert" v-for="(item, i) in recentSearches" :key="i">
+                <span class="me-1">{{ item }}</span>
+                <button type="button" class="btn-close small p-2" @click="recentSearches.splice(i, 1)"></button>
+              </div>
+              <button type="button" class="btn btn-sm btn-primary-soft mb-0" @click="recentSearches = []">Clear all</button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
+    <!-- =======================
+    Recent Searches END -->
+
+    <!-- =======================
+    Movie list START -->
+    <section class="pt-0">
+      <div class="container">
+        <!-- Controls row -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="hstack gap-3 justify-content-between justify-content-md-end mt-3">
+              <button class="btn btn-primary-soft mb-0 d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMovieFilters">
+                <i class="fa-solid fa-sliders-h me-1"></i> Show filters
+              </button>
+              <span class="text-muted small">{{ movies.length }} movies showing</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Sidebar START -->
+          <aside class="col-xl-4 col-xxl-3">
+            <div class="offcanvas-xl offcanvas-end" tabindex="-1" id="offcanvasMovieFilters">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Advance Filters</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasMovieFilters"></button>
+              </div>
+              <div class="offcanvas-body flex-column p-3 p-xl-0">
+                <form class="rounded-3 shadow">
+
+                  <!-- Genre -->
+                  <div class="card card-body rounded-0 rounded-top p-4">
+                    <h6 class="mb-2">Genre</h6>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="g1"><label class="form-check-label" for="g1">Nollywood</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="g2"><label class="form-check-label" for="g2">Action</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="g3"><label class="form-check-label" for="g3">Drama</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="g4"><label class="form-check-label" for="g4">Comedy</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="g5"><label class="form-check-label" for="g5">Thriller</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="g6"><label class="form-check-label" for="g6">Animation</label></div>
+                  </div>
+
+                  <hr class="my-0">
+
+                  <!-- Ticket Price -->
+                  <div class="card card-body rounded-0 p-4">
+                    <h6 class="mb-2">Ticket Price</h6>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="mp1"><label class="form-check-label" for="mp1">Under ₦3,000</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="mp2"><label class="form-check-label" for="mp2">₦3,000 – ₦5,000</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="mp3"><label class="form-check-label" for="mp3">₦5,000 – ₦8,000</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="mp4"><label class="form-check-label" for="mp4">₦8,000+</label></div>
+                  </div>
+
+                  <hr class="my-0">
+
+                  <!-- Cinema -->
+                  <div class="card card-body rounded-0 p-4">
+                    <h6 class="mb-2">Cinema</h6>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="ci1"><label class="form-check-label" for="ci1">FilmHouse Cinemas</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="ci2"><label class="form-check-label" for="ci2">Silverbird Cinemas</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="ci3"><label class="form-check-label" for="ci3">Genesis Cinemas</label></div>
+                    <div class="form-check"><input class="form-check-input" type="checkbox" id="ci4"><label class="form-check-label" for="ci4">Ozone Cinemas</label></div>
+                  </div>
+
+                  <hr class="my-0">
+
+                  <!-- Rating -->
+                  <div class="card card-body rounded-0 rounded-bottom p-4">
+                    <h6 class="mb-2">Rating</h6>
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item mb-1"><input type="checkbox" class="btn-check" id="mr1"><label class="btn btn-sm btn-light" for="mr1">G</label></li>
+                      <li class="list-inline-item mb-1"><input type="checkbox" class="btn-check" id="mr2"><label class="btn btn-sm btn-light" for="mr2">PG</label></li>
+                      <li class="list-inline-item mb-1"><input type="checkbox" class="btn-check" id="mr3"><label class="btn btn-sm btn-light" for="mr3">PG-13</label></li>
+                      <li class="list-inline-item mb-1"><input type="checkbox" class="btn-check" id="mr4"><label class="btn btn-sm btn-light" for="mr4">18+</label></li>
+                    </ul>
+                  </div>
+
+                </form>
+                <div class="d-flex justify-content-between p-2 p-xl-0 mt-xl-4">
+                  <button class="btn btn-link p-0 mb-0">Clear all</button>
+                  <button class="btn btn-primary mb-0">Filter Result</button>
+                </div>
+              </div>
+            </div>
+          </aside>
+          <!-- Sidebar END -->
+
+          <!-- Main content START -->
+          <div class="col-xl-8 col-xxl-9">
+
+            <!-- Info alert -->
+            <div class="alert alert-info alert-dismissible fade show small mb-4" role="alert">
+              <i class="bi bi-info-circle me-2"></i>
+              Book cinema tickets online and skip the queue — available at FilmHouse, Silverbird, Genesis and more cinemas across Nigeria.
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <!-- Movies grid -->
+            <div class="row g-4">
+              <div class="col-sm-6 col-lg-4" v-for="movie in paginatedMovies" :key="movie.id">
+                <div class="card shadow h-100">
+                  <!-- Poster image -->
+                  <div class="position-relative">
+                    <img :src="movie.image" class="card-img-top" :alt="movie.title" style="height: 220px; object-fit: cover;">
+                    <span class="badge text-bg-danger position-absolute top-0 start-0 m-2">{{ movie.genre }}</span>
+                    <span class="badge text-bg-dark position-absolute top-0 end-0 m-2">{{ movie.rating }}</span>
+                  </div>
+                  <!-- Body -->
+                  <div class="card-body d-flex flex-column">
+                    <h6 class="card-title fw-bold mb-1">
+                      <a href="#" class="stretched-link text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#comingSoonModal">{{ movie.title }}</a>
+                    </h6>
+                    <small class="text-muted mb-2"><i class="bi bi-camera-reels me-1"></i>{{ movie.cinema }}</small>
+                    <!-- Showtimes -->
+                    <div class="d-flex flex-wrap gap-1 mb-3">
+                      <span class="badge bg-light text-dark border" v-for="time in movie.showtimes" :key="time">{{ time }}</span>
+                    </div>
+                    <div class="mt-auto d-flex align-items-center justify-content-between">
+                      <div>
+                        <span class="text-muted small">From</span>
+                        <span class="fw-bold ms-1">₦{{ movie.price.toLocaleString() }}</span>
+                      </div>
+                      <a href="#" class="btn btn-sm btn-dark mb-0" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Buy Ticket</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pagination -->
+            <nav class="mt-5" v-if="totalPages > 1">
+              <ul class="pagination pagination-sm justify-content-center">
+                <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                  <a class="page-link" href="#" @click.prevent="currentPage--">
+                    <i class="bi bi-chevron-left"></i>
+                  </a>
+                </li>
+                <li class="page-item" v-for="n in totalPages" :key="n" :class="{ active: currentPage === n }">
+                  <a class="page-link" href="#" @click.prevent="currentPage = n">{{ n }}</a>
+                </li>
+                <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                  <a class="page-link" href="#" @click.prevent="currentPage++">
+                    <i class="bi bi-chevron-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+
+          </div>
+          <!-- Main content END -->
+        </div>
+      </div>
+    </section>
+    <!-- =======================
+    Movie list END -->
+
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
-const search = ref('')
+const city = ref('')
+const date = ref('')
+const dateInput = ref(null)
 const genre = ref('')
+const currentPage = ref(1)
+const perPage = 6
+
+const recentSearches = ref(['A Tribe Called Judah', 'FilmHouse Lagos', 'Silverbird Abuja', 'Nollywood Latest', 'Genesis Cinemas PH'])
+
+onMounted(() => {
+  if (window.flatpickr && dateInput.value) {
+    window.flatpickr(dateInput.value, {
+      dateFormat: 'M j, Y',
+      minDate: 'today',
+      onChange(selectedDates, dateStr) { date.value = dateStr },
+    })
+  }
+})
 
 const movies = [
-  { id: 1, title: 'A Tribe Called Judah', cinema: 'FilmHouse, Lagos', genre: 'Nollywood', showtimes: ['12:00', '15:30', '18:00'], price: 4500, image: '🎞️' },
-  { id: 2, title: 'Oppenheimer', cinema: 'Silverbird, Abuja', genre: 'Drama', showtimes: ['13:00', '16:00', '20:00'], price: 5000, image: '💣' },
-  { id: 3, title: 'The Equalizer 3', cinema: 'Genesis, Lagos', genre: 'Action', showtimes: ['11:00', '14:30', '19:00'], price: 4500, image: '🔫' },
-  { id: 4, title: 'No Hard Feelings', cinema: 'Filmhouse, PH', genre: 'Comedy', showtimes: ['12:30', '15:00', '17:30'], price: 4000, image: '😆' },
+  {
+    id: 1,
+    title: 'A Tribe Called Judah',
+    cinema: 'FilmHouse, Victoria Island',
+    genre: 'Nollywood',
+    rating: 'PG-13',
+    showtimes: ['12:00', '15:30', '18:00', '20:30'],
+    price: 4500,
+    image: '/assets/images/category/movie/movie1.jpg',
+  },
+  {
+    id: 2,
+    title: 'Breath of Life',
+    cinema: 'Silverbird, Galleria Lagos',
+    genre: 'Drama',
+    rating: 'PG',
+    showtimes: ['11:00', '14:00', '17:00', '20:00'],
+    price: 5000,
+    image: '/assets/images/category/movie/movie2.jpg',
+  },
+  {
+    id: 3,
+    title: 'Jade & the Dragon',
+    cinema: 'Genesis, Lekki Phase 1',
+    genre: 'Action',
+    rating: 'PG-13',
+    showtimes: ['12:30', '15:00', '18:30', '21:00'],
+    price: 4500,
+    image: '/assets/images/category/movie/movie3.jpg',
+  },
+  {
+    id: 4,
+    title: 'No Hard Feelings',
+    cinema: 'Ozone Cinemas, Lagos',
+    genre: 'Comedy',
+    rating: 'PG-13',
+    showtimes: ['13:00', '16:00', '19:00'],
+    price: 4000,
+    image: '/assets/images/category/movie/movie4.jpg',
+  },
+  {
+    id: 5,
+    title: 'The Covenant',
+    cinema: 'Silverbird, Abuja',
+    genre: 'Thriller',
+    rating: '18+',
+    showtimes: ['14:00', '17:30', '21:00'],
+    price: 5500,
+    image: '/assets/images/category/movie/movie5.jpg',
+  },
+  {
+    id: 6,
+    title: 'Mufasa: The Lion King',
+    cinema: 'FilmHouse, Ikeja City Mall',
+    genre: 'Animation',
+    rating: 'G',
+    showtimes: ['10:00', '12:30', '15:00', '17:30'],
+    price: 3500,
+    image: '/assets/images/category/movie/movie6.jpg',
+  },
 ]
+
+const totalPages = computed(() => Math.ceil(movies.length / perPage))
+
+const paginatedMovies = computed(() => {
+  const start = (currentPage.value - 1) * perPage
+  return movies.slice(start, start + perPage)
+})
 </script>
-
-<style scoped>
-.category-page { min-height: 100vh; }
-
-.page-header {
-  background: linear-gradient(135deg, #7f1d1d, #ef4444);
-  color: #fff;
-  padding: 3rem 1.5rem;
-}
-
-.page-header h1 { font-size: 2rem; font-weight: 800; }
-.page-header p { color: #fee2e2; margin-top: 0.5rem; }
-
-.container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
-.content { padding-top: 2rem; padding-bottom: 4rem; }
-
-.filters { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
-
-.filters input,
-.filters select {
-  padding: 0.65rem 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  outline: none;
-}
-
-.filters input { flex: 1; min-width: 200px; }
-
-.listings {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1.5rem;
-}
-
-.listing-card {
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #fff;
-  transition: box-shadow 0.2s;
-}
-
-.listing-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
-
-.card-img {
-  height: 160px;
-  background: #1c1917;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 4rem;
-}
-
-.card-body { padding: 1.25rem; }
-.genre-tag { font-size: 0.75rem; background: #fee2e2; color: #991b1b; padding: 0.2rem 0.5rem; border-radius: 4px; }
-.card-body h3 { font-weight: 700; color: #111827; margin-top: 0.5rem; }
-.cinema { font-size: 0.85rem; color: #6b7280; margin: 0.35rem 0 0.5rem; }
-
-.showtimes { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
-
-.time-pill {
-  font-size: 0.75rem;
-  background: #f3f4f6;
-  color: #374151;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  border: 1px solid #e5e7eb;
-}
-
-.footer { display: flex; align-items: center; justify-content: space-between; }
-.price strong { color: #111827; font-size: 1rem; }
-
-.btn-book {
-  padding: 0.5rem 1rem;
-  background: #ef4444;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.btn-book:hover { background: #dc2626; }
-</style>
