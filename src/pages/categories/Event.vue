@@ -203,7 +203,7 @@
                   <!-- Body -->
                   <div class="card-body d-flex flex-column">
                     <h6 class="card-title fw-bold mb-1">
-                      <a href="#" class="stretched-link text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#comingSoonModal">{{ event.name }}</a>
+                      <router-link :to="`/categories/events/${event.id}`" class="stretched-link text-dark text-decoration-none">{{ event.name }}</router-link>
                     </h6>
                     <small class="text-muted mb-1"><i class="bi bi-geo-alt me-1"></i>{{ event.venue }}</small>
                     <small class="text-muted mb-3"><i class="bi bi-calendar me-1"></i>{{ event.date }}</small>
@@ -212,7 +212,7 @@
                         <span class="text-muted small">From</span>
                         <span class="fw-bold ms-1">₦{{ event.price.toLocaleString() }}</span>
                       </div>
-                      <a href="#" class="btn btn-sm btn-dark mb-0" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Get Tickets</a>
+                      <router-link :to="`/categories/events/${event.id}`" class="btn btn-sm btn-dark mb-0">View Details</router-link>
                     </div>
                   </div>
                 </div>
@@ -251,6 +251,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { events } from '@/data/events.js'
 
 const location = ref('')
 const date = ref('')
@@ -270,89 +271,6 @@ onMounted(() => {
     })
   }
 })
-
-const events = [
-  {
-    id: 1,
-    name: 'Afrobeats Live Concert',
-    venue: 'Eko Hotel & Suites, Lagos',
-    date: 'Apr 26, 2026',
-    type: 'Concert',
-    price: 15000,
-    featured: true,
-    image: '/assets/images/category/event/concert.jpg',
-  },
-  {
-    id: 2,
-    name: 'Tech Summit Nigeria 2026',
-    venue: 'ICC, Abuja',
-    date: 'May 2, 2026',
-    type: 'Conference',
-    price: 20000,
-    featured: false,
-    image: '/assets/images/category/event/conference.jpg',
-  },
-  {
-    id: 3,
-    name: 'Super Eagles vs Ghana',
-    venue: 'MKO Abiola Stadium, Lagos',
-    date: 'May 10, 2026',
-    type: 'Sports',
-    price: 10000,
-    featured: true,
-    image: '/assets/images/category/event/sports.jpg',
-  },
-  {
-    id: 4,
-    name: 'Night of 1000 Laughs',
-    venue: 'Terra Kulture, Lagos',
-    date: 'May 17, 2026',
-    type: 'Comedy',
-    price: 12000,
-    featured: false,
-    image: '/assets/images/category/event/comedy.jpg',
-  },
-  {
-    id: 5,
-    name: 'Lagos Carnival & Street Festival',
-    venue: 'Tafawa Balewa Square, Lagos',
-    date: 'May 25, 2026',
-    type: 'Festival',
-    price: 5000,
-    featured: true,
-    image: '/assets/images/category/event/festival.jpg',
-  },
-  {
-    id: 6,
-    name: 'Lagos Fashion Week 2026',
-    venue: 'Oriental Hotel, Lagos',
-    date: 'Jun 5, 2026',
-    type: 'Fashion',
-    price: 8000,
-    featured: false,
-    image: '/assets/images/category/event/fashion.jpg',
-  },
-  {
-    id: 7,
-    name: 'Davido Live in Concert',
-    venue: 'Coca-Cola Arena, Abuja',
-    date: 'Jun 14, 2026',
-    type: 'Concert',
-    price: 25000,
-    featured: true,
-    image: '/assets/images/category/event/concert2.jpg',
-  },
-  {
-    id: 8,
-    name: 'Nigerian Startup Summit',
-    venue: 'Landmark Centre, Lagos',
-    date: 'Jun 20, 2026',
-    type: 'Conference',
-    price: 15000,
-    featured: false,
-    image: '/assets/images/category/event/conference.jpg',
-  },
-]
 
 const totalPages = computed(() => Math.ceil(events.length / perPage))
 

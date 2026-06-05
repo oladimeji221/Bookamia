@@ -263,7 +263,7 @@
                         <li class="list-inline-item text-decoration-line-through me-1 text-muted" v-if="cab.originalPrice">₦{{ cab.originalPrice.toLocaleString() }}</li>
                         <li class="list-inline-item h5 mb-0">₦{{ cab.price.toLocaleString() }}</li>
                       </ul>
-                      <a href="#" class="btn btn-dark mb-0" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Book Now</a>
+                      <router-link :to="`/categories/cabs/${cab.id}`" class="btn btn-dark mb-0">View Details</router-link>
                     </div>
                   </div>
                 </div>
@@ -324,6 +324,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { cabs } from '@/data/cabs.js'
 
 const tripType = ref('oneway')
 const pickup = ref('')
@@ -356,57 +357,6 @@ onMounted(() => {
     }
   }
 })
-
-const cabs = [
-  {
-    id: 1,
-    name: 'Toyota Corolla / Camry',
-    type: 'SEDAN',
-    seats: 4,
-    rating: 4.5,
-    price: 8000,
-    originalPrice: 10000,
-    discount: 20,
-    image: '/assets/images/category/cab/corolla.jpg',
-    details: ['Up to 200km included', '2 luggage bags'],
-  },
-  {
-    id: 2,
-    name: 'Toyota Prado / Land Cruiser',
-    type: 'SUV',
-    seats: 6,
-    rating: 4.7,
-    price: 18000,
-    originalPrice: 22000,
-    discount: 18,
-    image: '/assets/images/category/cab/prado.jpg',
-    details: ['Up to 300km included', '4 luggage bags'],
-  },
-  {
-    id: 3,
-    name: 'Mercedes E-Class / BMW 5',
-    type: 'EXECUTIVE',
-    seats: 4,
-    rating: 4.9,
-    price: 35000,
-    originalPrice: null,
-    discount: null,
-    image: '/assets/images/category/cab/mercedes.jpg',
-    details: ['Up to 150km included', 'Complimentary water'],
-  },
-  {
-    id: 4,
-    name: 'Toyota Hiace / Sienna',
-    type: 'MINIBUS',
-    seats: 7,
-    rating: 4.4,
-    price: 25000,
-    originalPrice: 30000,
-    discount: 17,
-    image: '/assets/images/category/cab/hiace.jpg',
-    details: ['Up to 250km included', 'Group-friendly'],
-  },
-]
 
 const totalPages = computed(() => Math.ceil(cabs.length / perPage))
 

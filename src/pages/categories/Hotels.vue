@@ -192,12 +192,25 @@
 
               <div class="card shadow p-2" v-for="hotel in paginatedHotels" :key="hotel.id">
                 <div class="row g-0">
-                  <!-- Image -->
-                  <div class="col-md-5">
-                    <img :src="hotel.image" class="card-img rounded-2" :alt="hotel.name" style="height: 100%; min-height: 200px; object-fit: cover;">
+
+                  <!-- Multi-image: slider -->
+                  <div class="col-md-6" v-if="hotel.images.length > 1">
+                    <div class="hotel-card-slider tiny-slider arrow-round arrow-xs arrow-dark overflow-hidden rounded-2" style="position:relative;">
+                      <div class="tiny-slider-inner" data-autoplay="false" data-arrow="true" data-dots="false" data-items="1">
+                        <div v-for="(img, i) in hotel.images" :key="i">
+                          <img :src="img" :alt="hotel.name" style="width:100%;height:260px;object-fit:cover;display:block;">
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
+                  <!-- Single image -->
+                  <div class="col-md-6 overflow-hidden" v-else>
+                    <img :src="hotel.images[0]" class="card-img rounded-2" :alt="hotel.name" style="height:260px;object-fit:cover;">
+                  </div>
+
                   <!-- Body -->
-                  <div class="col-md-7">
+                  <div class="col-md-6">
                     <div class="card-body py-md-2 d-flex flex-column h-100">
                       <!-- Stars + icons -->
                       <div class="d-flex justify-content-between align-items-center">
@@ -225,12 +238,15 @@
                       </ul>
                       <!-- Price + Button -->
                       <div class="d-sm-flex justify-content-sm-between align-items-center mt-3 mt-md-auto">
-                        <div class="d-flex align-items-center">
-                          <h5 class="fw-bold mb-0 me-1">₦{{ hotel.price.toLocaleString() }}</h5>
-                          <span class="mb-0">/night</span>
+                        <div>
+                          <small class="text-muted d-block">Price starts at</small>
+                          <div class="d-flex align-items-baseline">
+                            <h5 class="fw-bold mb-0 me-1">₦{{ hotel.price.toLocaleString() }}</h5>
+                            <span class="small text-muted">/night</span>
+                          </div>
                         </div>
                         <div class="mt-3 mt-sm-0">
-                          <a href="#" class="btn btn-sm btn-dark mb-0 w-100" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Select Room</a>
+                          <router-link :to="`/categories/hotels/${hotel.id}`" class="btn btn-sm btn-dark mb-0 w-100">View Details</router-link>
                         </div>
                       </div>
                     </div>
@@ -271,7 +287,8 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, nextTick, watch } from 'vue'
+import { hotels } from '@/data/hotels.js'
 
 const location = ref('')
 const dates = ref('')
@@ -280,6 +297,36 @@ const guests = ref('')
 const currentPage = ref(1)
 const perPage = 3
 const recentSearches = ref(['Eko Hotels Lagos', 'Transcorp Hilton Abuja', 'Port Harcourt Hotels', 'Ibadan Hotels', 'Lagos Island Hotels'])
+
+const sliderInstances = []
+
+function initSliders() {
+  while (sliderInstances.length) {
+    const inst = sliderInstances.pop()
+    try { inst.destroy() } catch (e) {}
+  }
+  if (!window.tns) return
+  document.querySelectorAll('.hotel-card-slider .tiny-slider-inner').forEach(el => {
+    const inst = window.tns({
+      container: el,
+      mode: 'carousel',
+      items: 1,
+      speed: 500,
+      controls: true,
+      nav: false,
+      autoplay: false,
+      loop: true,
+      mouseDrag: true,
+      touch: true,
+      arrowKeys: true,
+      controlsText: [
+        '<i class="bi bi-arrow-left"></i>',
+        '<i class="bi bi-arrow-right"></i>',
+      ],
+    })
+    if (inst) sliderInstances.push(inst)
+  })
+}
 
 onMounted(() => {
   if (window.flatpickr && datesInput.value) {
@@ -290,54 +337,20 @@ onMounted(() => {
       onChange(selectedDates, dateStr) { dates.value = dateStr },
     })
   }
+  nextTick(initSliders)
 })
 
-const hotels = [
-  {
-    id: 1,
-    name: 'Eko Hotels & Suites',
-    location: 'Victoria Island, Lagos',
-    stars: 5,
-    price: 85000,
-    amenities: ['Air Conditioning', 'WiFi', 'Pool', 'Restaurant'],
-    cancellation: true,
-    breakfast: true,
-    image: '/assets/images/category/hotel/01.jpg',
-  },
-  {
-    id: 2,
-    name: 'Transcorp Hilton Abuja',
-    location: 'Maitama, Abuja',
-    stars: 5,
-    price: 120000,
-    amenities: ['Air Conditioning', 'WiFi', 'Gym', 'Pool'],
-    cancellation: true,
-    breakfast: false,
-    image: '/assets/images/category/hotel/02.jpg',
-  },
-  {
-    id: 3,
-    name: 'Novotel Port Harcourt',
-    location: 'GRA Phase 2, Port Harcourt',
-    stars: 4,
-    price: 55000,
-    amenities: ['Air Conditioning', 'WiFi', 'Restaurant'],
-    cancellation: false,
-    breakfast: false,
-    image: '/assets/images/category/hotel/03.jpg',
-  },
-  {
-    id: 4,
-    name: 'Premier Hotel Ibadan',
-    location: 'Old Bodija, Ibadan',
-    stars: 4,
-    price: 38000,
-    amenities: ['Air Conditioning', 'WiFi', 'Parking'],
-    cancellation: true,
-    breakfast: true,
-    image: '/assets/images/category/hotel/04.jpg',
-  },
-]
+watch(currentPage, () => {
+  nextTick(initSliders)
+})
+
+onBeforeUnmount(() => {
+  while (sliderInstances.length) {
+    const inst = sliderInstances.pop()
+    try { inst.destroy() } catch (e) {}
+  }
+})
+
 
 const totalPages = computed(() => Math.ceil(hotels.length / perPage))
 

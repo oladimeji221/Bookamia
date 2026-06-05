@@ -225,11 +225,14 @@
                       <!-- Price + Button -->
                       <div class="d-sm-flex justify-content-sm-between align-items-center mt-3 mt-md-auto">
                         <div>
-                          <span class="text-muted small">Avg spend: </span>
-                          <span class="fw-bold">₦{{ place.avgPrice.toLocaleString() }}</span>
+                          <small class="text-muted d-block">Price starts at</small>
+                          <div class="d-flex align-items-baseline">
+                            <h5 class="fw-bold mb-0 me-1">₦{{ place.avgPrice.toLocaleString() }}</h5>
+                            <span class="small text-muted">/person</span>
+                          </div>
                         </div>
                         <div class="mt-3 mt-sm-0">
-                          <a href="#" class="btn btn-sm btn-dark mb-0 w-100" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Reserve Table</a>
+                          <router-link :to="`/categories/eatery/${place.id}`" class="btn btn-sm btn-dark mb-0 w-100">View Details</router-link>
                         </div>
                       </div>
                     </div>
@@ -271,6 +274,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { eateries } from '@/data/eateries.js'
 
 const location = ref('')
 const cuisine = ref('')
@@ -289,81 +293,6 @@ onMounted(() => {
     })
   }
 })
-
-const eateries = [
-  {
-    id: 1,
-    name: 'Buka Express Lagos',
-    location: 'Victoria Island, Lagos',
-    cuisine: 'Nigerian',
-    rating: 4.7,
-    avgPrice: 8000,
-    tags: ['Dine-in', 'Takeaway', 'Outdoor'],
-    hours: 'Open 8am – 10pm',
-    phone: '+234 (0) 801 234 5678',
-    image: '/assets/images/category/eateries/buka.webp',
-  },
-  {
-    id: 2,
-    name: 'Mama Cass Restaurant',
-    location: 'GRA, Port Harcourt',
-    cuisine: 'Nigerian',
-    rating: 4.8,
-    avgPrice: 12000,
-    tags: ['Dine-in', 'Delivery', 'Private Dining'],
-    hours: 'Open 9am – 11pm',
-    phone: '+234 (0) 803 456 7890',
-    image: '/assets/images/category/eateries/mamacass.jpeg',
-  },
-  {
-    id: 3,
-    name: 'Yellow Chilli Abuja',
-    location: 'Wuse II, Abuja',
-    cuisine: 'Fine Dining',
-    rating: 4.6,
-    avgPrice: 25000,
-    tags: ['Dine-in', 'Bar', 'Outdoor'],
-    hours: 'Open 12pm – 11pm',
-    phone: '+234 (0) 805 678 9012',
-    image: '/assets/images/category/eateries/yellowchilli.jpg',
-  },
-  {
-    id: 4,
-    name: 'The Place Restaurant',
-    location: 'Lekki Phase 1, Lagos',
-    cuisine: 'Nigerian',
-    rating: 4.5,
-    avgPrice: 10000,
-    tags: ['Dine-in', 'Takeaway', 'Delivery'],
-    hours: 'Open 7am – 10pm',
-    phone: '+234 (0) 807 890 1234',
-    image: '/assets/images/category/eateries/the_place.jpg',
-  },
-  {
-    id: 5,
-    name: 'Nkoyo Fine Dining',
-    location: 'Garki, Abuja',
-    cuisine: 'Fine Dining',
-    rating: 4.9,
-    avgPrice: 35000,
-    tags: ['Dine-in', 'Private Events', 'Bar'],
-    hours: 'Open 12pm – 12am',
-    phone: '+234 (0) 809 012 3456',
-    image: '/assets/images/category/eateries/nkoyo.jpg',
-  },
-  {
-    id: 6,
-    name: 'Sweet Sensation',
-    location: 'Ikeja, Lagos',
-    cuisine: 'Fast Food',
-    rating: 4.3,
-    avgPrice: 4000,
-    tags: ['Dine-in', 'Takeaway', 'Delivery'],
-    hours: 'Open 7am – 9pm',
-    phone: '+234 (0) 804 567 8901',
-    image: '/assets/images/category/eateries/sweet_sensation.png',
-  },
-]
 
 const totalPages = computed(() => Math.ceil(eateries.length / perPage))
 

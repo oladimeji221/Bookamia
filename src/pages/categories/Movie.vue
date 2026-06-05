@@ -202,7 +202,7 @@
                   <!-- Body -->
                   <div class="card-body d-flex flex-column">
                     <h6 class="card-title fw-bold mb-1">
-                      <a href="#" class="stretched-link text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#comingSoonModal">{{ movie.title }}</a>
+                      <router-link :to="`/categories/movies/${movie.id}`" class="stretched-link text-dark text-decoration-none">{{ movie.title }}</router-link>
                     </h6>
                     <small class="text-muted mb-2"><i class="bi bi-camera-reels me-1"></i>{{ movie.cinema }}</small>
                     <!-- Showtimes -->
@@ -214,7 +214,7 @@
                         <span class="text-muted small">From</span>
                         <span class="fw-bold ms-1">₦{{ movie.price.toLocaleString() }}</span>
                       </div>
-                      <a href="#" class="btn btn-sm btn-dark mb-0" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Buy Ticket</a>
+                      <router-link :to="`/categories/movies/${movie.id}`" class="btn btn-sm btn-dark mb-0">View Details</router-link>
                     </div>
                   </div>
                 </div>
@@ -253,6 +253,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { movies } from '@/data/movies.js'
 
 const city = ref('')
 const date = ref('')
@@ -272,69 +273,6 @@ onMounted(() => {
     })
   }
 })
-
-const movies = [
-  {
-    id: 1,
-    title: 'A Tribe Called Judah',
-    cinema: 'FilmHouse, Victoria Island',
-    genre: 'Nollywood',
-    rating: 'PG-13',
-    showtimes: ['12:00', '15:30', '18:00', '20:30'],
-    price: 4500,
-    image: '/assets/images/category/movie/movie1.jpg',
-  },
-  {
-    id: 2,
-    title: 'Breath of Life',
-    cinema: 'Silverbird, Galleria Lagos',
-    genre: 'Drama',
-    rating: 'PG',
-    showtimes: ['11:00', '14:00', '17:00', '20:00'],
-    price: 5000,
-    image: '/assets/images/category/movie/movie2.jpg',
-  },
-  {
-    id: 3,
-    title: 'Jade & the Dragon',
-    cinema: 'Genesis, Lekki Phase 1',
-    genre: 'Action',
-    rating: 'PG-13',
-    showtimes: ['12:30', '15:00', '18:30', '21:00'],
-    price: 4500,
-    image: '/assets/images/category/movie/movie3.jpg',
-  },
-  {
-    id: 4,
-    title: 'No Hard Feelings',
-    cinema: 'Ozone Cinemas, Lagos',
-    genre: 'Comedy',
-    rating: 'PG-13',
-    showtimes: ['13:00', '16:00', '19:00'],
-    price: 4000,
-    image: '/assets/images/category/movie/movie4.jpg',
-  },
-  {
-    id: 5,
-    title: 'The Covenant',
-    cinema: 'Silverbird, Abuja',
-    genre: 'Thriller',
-    rating: '18+',
-    showtimes: ['14:00', '17:30', '21:00'],
-    price: 5500,
-    image: '/assets/images/category/movie/movie5.jpg',
-  },
-  {
-    id: 6,
-    title: 'Mufasa: The Lion King',
-    cinema: 'FilmHouse, Ikeja City Mall',
-    genre: 'Animation',
-    rating: 'G',
-    showtimes: ['10:00', '12:30', '15:00', '17:30'],
-    price: 3500,
-    image: '/assets/images/category/movie/movie6.jpg',
-  },
-]
 
 const totalPages = computed(() => Math.ceil(movies.length / perPage))
 

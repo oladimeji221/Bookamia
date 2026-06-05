@@ -18,7 +18,7 @@ About START -->
 				</figure>
 
 				<!-- Svg decoration -->
-				<figure class="position-absolute bottom-0 end-0 d-none d-md-block mb-n5 me-n4">
+				<figure class="position        -absolute bottom-0 end-0 d-none d-md-block mb-n5 me-n4">
 					<svg height="400" class="fill-primary opacity-2" viewBox="0 0 340 340">
 						<circle cx="194.2" cy="2.2" r="2.2"></circle>
 						<circle cx="2.2" cy="2.2" r="2.2"></circle>

@@ -87,14 +87,14 @@
 									
 									<li>
 										<a href="#" class="list-group-item list-group-item-action rounded notif-unread border-0 mb-1 p-3">
-											<h6 class="mb-2">New! Booking flights from New York ✈️</h6>
+											<h6 class="mb-2">New! Booking flights from New York</h6>
 											<p class="mb-0 small">Find the flexible ticket on flights around the world. Start searching today</p>
 											<span>Wednesday</span>
 										</a>
 									</li>
 									<li>
 										<a href="#" class="list-group-item list-group-item-action rounded border-0 mb-1 p-3">
-											<h6 class="mb-2">Sunshine saving are here 🌞 save 30% or more on a stay</h6>
+											<h6 class="mb-2">Sunshine savings are here — save 30% or more on a stay</h6>
 											<span>15 Nov 2022</span>
 										</a>
 									</li>
