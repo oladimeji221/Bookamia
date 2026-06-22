@@ -7,20 +7,18 @@
       <div class="container">
         <div class="card bg-light overflow-hidden px-sm-5">
           <div class="row align-items-center g-4">
-            <div class="col-sm-9">
+            <div class="col-12">
               <div class="card-body">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb breadcrumb-dots mb-0">
-                    <li class="breadcrumb-item">
-                      <router-link to="/"><i class="bi bi-house me-1"></i>Home</router-link>
-                    </li>
-                    <li class="breadcrumb-item">
-                      <router-link :to="`/categories/eatery/${eatery.id}`">{{ eatery.name }}</router-link>
-                    </li>
-                    <li class="breadcrumb-item active">Reservation</li>
+                    <li class="breadcrumb-item"><router-link to="/"><i class="bi bi-house me-1"></i>Home</router-link></li>
+                    <li class="breadcrumb-item"><router-link to="/categories/eatery">Eateries</router-link></li>
+                    <li class="breadcrumb-item"><router-link :to="`/categories/eatery/${eatery.id}`">{{ eatery.name }}</router-link></li>
+                    <li class="breadcrumb-item active">Place Order</li>
                   </ol>
                 </nav>
-                <h1 class="m-0 h2 card-title">Review your Reservation</h1>
+                <h1 class="m-0 h2 card-title">Place Your Order</h1>
+                <p class="mb-0 text-muted">{{ eatery.name }} &bull; {{ eatery.location }}</p>
               </div>
             </div>
           </div>
@@ -40,88 +38,104 @@
           <div class="col-xl-8">
             <div class="vstack gap-5">
 
-              <!-- Restaurant Information START -->
+              <!-- Order Type START -->
               <div class="card shadow">
-                <div class="card-header p-4 border-bottom">
-                  <h3 class="mb-0"><i class="fa-solid fa-utensils me-2"></i>Restaurant Information</h3>
+                <div class="card-header border-bottom p-4">
+                  <h4 class="card-title mb-0"><i class="bi bi-bag-check-fill me-2"></i>How would you like your order?</h4>
+                </div>
+                <div class="card-body p-4">
+                  <div class="row g-3">
+                    <div class="col-sm-4" v-for="type in orderTypes" :key="type.value">
+                      <label class="d-block cursor-pointer">
+                        <input type="radio" class="btn-check" name="orderType" :value="type.value" v-model="orderType">
+                        <div class="card border p-3 text-center h-100"
+                          :class="orderType === type.value ? 'border-primary bg-primary bg-opacity-10' : ''">
+                          <i :class="`${type.icon} fs-3 mb-2`" :style="orderType === type.value ? 'color: var(--bs-primary)' : ''"></i>
+                          <h6 class="mb-0">{{ type.label }}</h6>
+                          <small class="text-muted">{{ type.desc }}</small>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Delivery address field -->
+                  <div class="mt-4" v-if="orderType === 'delivery'">
+                    <label class="form-label fw-semibold">Delivery Address</label>
+                    <input type="text" class="form-control form-control-lg"
+                      placeholder="Enter your full delivery address" v-model="form.address">
+                    <div class="form-text">Delivery fee: ₦1,500 within the city</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Order Type END -->
+
+              <!-- Menu START -->
+              <div class="card shadow">
+                <div class="card-header border-bottom p-4">
+                  <h4 class="card-title mb-0"><i class="bi bi-grid-fill me-2"></i>Select Your Items</h4>
                 </div>
                 <div class="card-body p-4">
 
-                  <!-- Restaurant card -->
-                  <div class="card mb-4">
-                    <div class="row align-items-center">
-                      <div class="col-sm-6 col-md-3">
-                        <img :src="eatery.image" class="card-img" :alt="eatery.name"
-                          style="height:120px;object-fit:cover;">
-                      </div>
-                      <div class="col-sm-6 col-md-9">
-                        <div class="card-body pt-3 pt-sm-0 p-0">
-                          <h5 class="card-title">{{ eatery.name }}</h5>
-                          <p class="small mb-2"><i class="bi bi-geo-alt me-2"></i>{{ eatery.location }}</p>
-                          <ul class="list-inline mb-0">
-                            <li class="list-inline-item me-0 small" v-for="n in Math.floor(eatery.rating)" :key="n">
-                              <i class="fa-solid fa-star text-warning"></i>
-                            </li>
-                            <li class="list-inline-item ms-2 h6 small fw-bold mb-0">
-                              {{ eatery.rating }}/5.0
-                            </li>
-                          </ul>
+                  <!-- Category tabs -->
+                  <ul class="nav nav-pills nav-fill mb-4 flex-wrap gap-2">
+                    <li class="nav-item" v-for="(cat, idx) in eatery.menu" :key="idx">
+                      <button class="nav-link mb-0"
+                        :class="activeCategory === idx ? 'active' : ''"
+                        @click="activeCategory = idx">
+                        {{ cat.category }}
+                      </button>
+                    </li>
+                  </ul>
+
+                  <!-- Menu items -->
+                  <div class="vstack gap-3">
+                    <div v-for="item in eatery.menu[activeCategory].items" :key="item.name"
+                      class="card border p-3">
+                      <div class="row align-items-center g-3">
+
+                        <!-- Item info -->
+                        <div class="col">
+                          <h6 class="mb-1">{{ item.name }}</h6>
+                          <span class="text-success fw-bold">₦{{ item.price.toLocaleString() }}</span>
                         </div>
-                      </div>
-                    </div>
-                  </div>
 
-                  <!-- Reservation Date / Time / Guests -->
-                  <div class="row g-4">
-                    <div class="col-lg-4">
-                      <div class="bg-light py-3 px-4 rounded-3">
-                        <h6 class="fw-light small mb-1">Reservation Date</h6>
-                        <h5 class="mb-1">{{ reservationDate || 'Select date' }}</h5>
-                        <small><i class="bi bi-calendar me-1"></i>Dine-in</small>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="bg-light py-3 px-4 rounded-3">
-                        <h6 class="fw-light small mb-1">Arrival Time</h6>
-                        <select class="form-select form-select-sm border-0 bg-transparent fw-bold fs-5 px-0 py-0"
-                          v-model="arrivalTime" style="max-width:160px;">
-                          <option>12:00 pm</option>
-                          <option>12:30 pm</option>
-                          <option>1:00 pm</option>
-                          <option>1:30 pm</option>
-                          <option>2:00 pm</option>
-                          <option>6:00 pm</option>
-                          <option>6:30 pm</option>
-                          <option>7:00 pm</option>
-                          <option>7:30 pm</option>
-                          <option>8:00 pm</option>
-                        </select>
-                        <small><i class="bi bi-alarm me-1"></i>{{ eatery.hours }}</small>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="bg-light py-3 px-4 rounded-3">
-                        <h6 class="fw-light small mb-1">Number of Guests</h6>
-                        <select class="form-select form-select-sm border-0 bg-transparent fw-bold fs-5 px-0 py-0"
-                          v-model="numberOfGuests" style="max-width:140px;">
-                          <option v-for="n in 12" :key="n" :value="n">{{ n }} {{ n === 1 ? 'Guest' : 'Guests' }}</option>
-                        </select>
-                        <small><i class="bi bi-people me-1"></i>Seating for {{ eatery.about.seatingCapacity }}</small>
-                      </div>
-                    </div>
-                  </div>
+                        <!-- Quantity controls -->
+                        <div class="col-auto">
+                          <div class="d-flex align-items-center gap-2">
+                            <button class="btn btn-sm btn-outline-secondary px-2"
+                              @click="decrement(item)" :disabled="getQty(item) === 0">
+                              <i class="bi bi-dash"></i>
+                            </button>
+                            <span class="fw-bold" style="min-width:20px;text-align:center;">
+                              {{ getQty(item) }}
+                            </span>
+                            <button class="btn btn-sm btn-primary px-2"
+                              @click="increment(item)">
+                              <i class="bi bi-plus"></i>
+                            </button>
+                          </div>
+                        </div>
 
-                  <!-- Dining option -->
-                  <div class="card border mt-4">
-                    <div class="card-header border-bottom d-md-flex justify-content-md-between">
-                      <h5 class="card-title mb-0">Dining Preference</h5>
-                    </div>
-                    <div class="card-body">
-                      <div class="d-flex gap-3 flex-wrap">
-                        <div class="form-check" v-for="opt in diningOptions" :key="opt">
-                          <input class="form-check-input" type="radio" name="diningOption"
-                            :id="`dining-${opt}`" :value="opt" v-model="selectedDining">
-                          <label class="form-check-label" :for="`dining-${opt}`">{{ opt }}</label>
+                      </div>
+
+                      <!-- Protein selector (shown when item is in cart and hasProtein) -->
+                      <div class="mt-3 pt-3 border-top" v-if="item.hasProtein && getQty(item) > 0 && eatery.proteins.length">
+                        <label class="form-label small fw-semibold text-muted mb-2">
+                          <i class="bi bi-plus-circle me-1"></i>Choose protein for {{ item.name }}:
+                        </label>
+                        <div class="d-flex flex-wrap gap-2">
+                          <div v-for="protein in eatery.proteins" :key="protein.name">
+                            <input type="radio" class="btn-check"
+                              :name="`protein-${item.name}`"
+                              :id="`prot-${item.name}-${protein.name}`"
+                              :value="protein"
+                              v-model="getCartItem(item).protein">
+                            <label class="btn btn-sm btn-light btn-primary-soft-check"
+                              :for="`prot-${item.name}-${protein.name}`">
+                              {{ protein.name }}
+                              <span class="text-success ms-1">+₦{{ protein.price.toLocaleString() }}</span>
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -129,326 +143,223 @@
 
                 </div>
               </div>
-              <!-- Restaurant Information END -->
+              <!-- Menu END -->
+
+              <!-- Extras START -->
+              <div class="card shadow" v-if="eatery.extras && eatery.extras.length">
+                <div class="card-header border-bottom p-4">
+                  <h4 class="card-title mb-0"><i class="bi bi-plus-circle-fill me-2"></i>Add Extras</h4>
+                </div>
+                <div class="card-body p-4">
+                  <div class="row g-3">
+                    <div class="col-sm-6" v-for="extra in eatery.extras" :key="extra.name">
+                      <div class="form-check card border p-3 m-0"
+                        :class="isExtraSelected(extra) ? 'border-primary bg-primary bg-opacity-10' : ''">
+                        <input class="form-check-input" type="checkbox"
+                          :id="`extra-${extra.name}`"
+                          :checked="isExtraSelected(extra)"
+                          @change="toggleExtra(extra)">
+                        <label class="form-check-label d-flex justify-content-between w-100"
+                          :for="`extra-${extra.name}`">
+                          <span>{{ extra.name }}</span>
+                          <span class="text-success fw-bold">+₦{{ extra.price.toLocaleString() }}</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Extras END -->
 
               <!-- Guest Details START -->
               <div class="card shadow">
                 <div class="card-header border-bottom p-4">
-                  <h4 class="card-title mb-0"><i class="bi bi-people-fill me-2"></i>Guest Details</h4>
+                  <h4 class="card-title mb-0"><i class="bi bi-person-fill me-2"></i>Your Details</h4>
                 </div>
                 <div class="card-body p-4">
-
                   <form class="row g-4">
-                    <div class="col-12">
-                      <div class="bg-light rounded-2 px-4 py-3">
-                        <h6 class="mb-0">Primary Guest</h6>
-                      </div>
-                    </div>
-                    <div class="col-md-2">
-                      <label class="form-label">Title</label>
-                      <select class="form-select" v-model="form.title">
-                        <option>Mr</option>
-                        <option>Mrs</option>
-                        <option>Ms</option>
-                        <option>Dr</option>
-                      </select>
-                    </div>
-                    <div class="col-md-5">
-                      <label class="form-label">First Name</label>
+                    <div class="col-md-6">
+                      <label class="form-label">Full Name</label>
                       <input type="text" class="form-control form-control-lg"
-                        placeholder="Enter your first name" v-model="form.firstName">
-                    </div>
-                    <div class="col-md-5">
-                      <label class="form-label">Last Name</label>
-                      <input type="text" class="form-control form-control-lg"
-                        placeholder="Enter your last name" v-model="form.lastName">
+                        placeholder="Enter your name" v-model="form.name">
                     </div>
                     <div class="col-md-6">
-                      <label class="form-label">Email Address</label>
-                      <input type="email" class="form-control form-control-lg"
-                        placeholder="Enter your email" v-model="form.email">
-                      <div class="form-text">(Booking confirmation will be sent to this email)</div>
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Mobile Number</label>
+                      <label class="form-label">Phone Number</label>
                       <input type="tel" class="form-control form-control-lg"
                         placeholder="e.g. 08012345678" v-model="form.phone">
                     </div>
+                    <div class="col-12">
+                      <label class="form-label">Email Address</label>
+                      <input type="email" class="form-control form-control-lg"
+                        placeholder="Enter your email" v-model="form.email">
+                      <div class="form-text">Your order confirmation will be sent here</div>
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label">Special Instructions <span class="text-muted">(optional)</span></label>
+                      <textarea class="form-control" rows="2"
+                        placeholder="Any allergies, preferences, or special requests?"
+                        v-model="form.instructions"></textarea>
+                    </div>
                   </form>
 
-                  <!-- Login alert -->
-                  <div class="alert alert-info my-4" role="alert">
+                  <div class="alert alert-info mt-4 mb-0" role="alert">
                     <router-link to="/auth/login" class="alert-heading h6">Login</router-link>
-                    to prefill all details and access exclusive dining deals
+                    to prefill your details and track your order history.
                   </div>
-
-                  <!-- Special requests -->
-                  <div class="card border mt-4">
-                    <div class="card-header border-bottom">
-                      <h5 class="card-title mb-0">Special Request</h5>
-                    </div>
-                    <div class="card-body">
-                      <div class="hstack flex-wrap gap-3">
-                        <div class="form-check" v-for="req in specialRequests" :key="req.id">
-                          <input class="form-check-input" type="checkbox"
-                            :id="`req-${req.id}`" v-model="req.checked">
-                          <label class="form-check-label" :for="`req-${req.id}`">{{ req.label }}</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
                 </div>
               </div>
               <!-- Guest Details END -->
 
-              <!-- Payment Options START -->
+              <!-- Payment START -->
               <div class="card shadow">
                 <div class="card-header border-bottom p-4">
-                  <h4 class="card-title mb-0">
-                    <i class="bi bi-wallet-fill me-2"></i>Payment Options
-                  </h4>
+                  <h4 class="card-title mb-0"><i class="bi bi-wallet-fill me-2"></i>Payment</h4>
                 </div>
                 <div class="card-body p-4 pb-0">
 
-                  <!-- Paystack promo box -->
                   <div class="bg-primary bg-opacity-10 rounded-3 mb-4 p-3">
-                    <div class="d-md-flex justify-content-md-between align-items-center">
-                      <div class="d-sm-flex align-items-center mb-2 mb-md-0">
-                        <i class="bi bi-shield-fill-check text-primary fs-1 me-3"></i>
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center mb-2 mb-sm-0">
+                        <i class="bi bi-shield-fill-check text-primary fs-2 me-3"></i>
                         <div>
                           <h5 class="card-title mb-0">Secure Payment via Paystack</h5>
-                          <p class="mb-0">Your payment is protected by 256-bit SSL encryption</p>
+                          <p class="mb-0 small">Card, bank transfer, or USSD — all secured by Paystack</p>
                         </div>
                       </div>
-                      <img src="/assets/images/element/mastercard.svg" class="h-30px mt-2 mt-md-0" alt="">
+                      <img src="/assets/images/element/mastercard.svg" class="h-30px" alt="">
                     </div>
                   </div>
 
-                  <!-- Accordion START -->
-                  <div class="accordion accordion-icon accordion-bg-light" id="accordionPayment">
-
-                    <!-- Card / Transfer / USSD START -->
-                    <div class="accordion-item mb-3">
-                      <h6 class="accordion-header" id="heading-1">
-                        <button class="accordion-button rounded" type="button"
-                          data-bs-toggle="collapse" data-bs-target="#collapse-1"
-                          aria-expanded="true" aria-controls="collapse-1">
-                          <i class="bi bi-credit-card text-primary me-2"></i>
-                          <span class="me-5">Card / Bank Transfer / USSD</span>
-                        </button>
-                      </h6>
-                      <div id="collapse-1" class="accordion-collapse collapse show"
-                        aria-labelledby="heading-1" data-bs-parent="#accordionPayment">
-                        <div class="accordion-body">
-                          <div class="d-sm-flex justify-content-sm-between my-3">
-                            <h6 class="mb-2 mb-sm-0">We Accept:</h6>
-                            <ul class="list-inline my-0">
-                              <li class="list-inline-item">
-                                <img src="/assets/images/element/visa.svg" class="h-30px" alt="Visa">
-                              </li>
-                              <li class="list-inline-item">
-                                <img src="/assets/images/element/mastercard.svg" class="h-30px" alt="Mastercard">
-                              </li>
-                              <li class="list-inline-item">
-                                <img src="/assets/images/element/expresscard.svg" class="h-30px" alt="Verve">
-                              </li>
-                            </ul>
-                          </div>
-                          <p class="text-muted mb-3">
-                            Click <strong>Pay Now</strong> to securely complete your reservation deposit via Paystack.
-                            You can pay with card, bank transfer, or USSD — all handled securely by Paystack.
-                          </p>
-                          <div class="d-sm-flex justify-content-sm-between align-items-center">
-                            <h4 class="mb-0">
-                              &#8358;{{ totalAmount.toLocaleString() }}
-                              <span class="small fs-6 fw-light"> due now</span>
-                            </h4>
-                            <button class="btn btn-primary mb-0 mt-3 mt-sm-0"
-                              type="button" @click="payWithPaystack">
-                              <i class="bi bi-lock-fill me-2"></i>Pay Now
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- Card/Transfer END -->
-
-                    <!-- Bank Transfer START -->
-                    <div class="accordion-item mb-3">
-                      <h6 class="accordion-header" id="heading-2">
-                        <button class="accordion-button collapsed rounded" type="button"
-                          data-bs-toggle="collapse" data-bs-target="#collapse-2"
-                          aria-expanded="false" aria-controls="collapse-2">
-                          <i class="bi bi-bank text-primary me-2"></i>
-                          <span class="me-5">Pay via Bank</span>
-                        </button>
-                      </h6>
-                      <div id="collapse-2" class="accordion-collapse collapse"
-                        aria-labelledby="heading-2" data-bs-parent="#accordionPayment">
-                        <div class="accordion-body">
-                          <ul class="list-inline mb-3">
-                            <li class="list-inline-item"><h6 class="mb-0">Popular Banks:</h6></li>
-                            <li class="list-inline-item" v-for="bank in popularBanks" :key="bank">
-                              <input type="radio" class="btn-check" name="bankOption" :id="`bank-${bank}`">
-                              <label class="btn btn-light btn-primary-soft-check" :for="`bank-${bank}`">
-                                {{ bank }}
-                              </label>
-                            </li>
-                          </ul>
-                          <p class="mb-3">Select your bank and Paystack will redirect you to complete the payment securely.</p>
-                          <div class="d-grid">
-                            <button class="btn btn-success mb-0" type="button" @click="payWithPaystack">
-                              Pay &#8358;{{ totalAmount.toLocaleString() }} via Bank
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- Bank Transfer END -->
-
-                    <!-- USSD START -->
-                    <div class="accordion-item mb-3">
-                      <h6 class="accordion-header" id="heading-3">
-                        <button class="accordion-button collapsed rounded" type="button"
-                          data-bs-toggle="collapse" data-bs-target="#collapse-3"
-                          aria-expanded="false" aria-controls="collapse-3">
-                          <i class="bi bi-phone text-primary me-2"></i>
-                          <span class="me-5">Pay with USSD</span>
-                        </button>
-                      </h6>
-                      <div id="collapse-3" class="accordion-collapse collapse"
-                        aria-labelledby="heading-3" data-bs-parent="#accordionPayment">
-                        <div class="accordion-body">
-                          <div class="card card-body border align-items-center text-center mt-2">
-                            <i class="bi bi-phone-fill text-primary fs-1 mb-3"></i>
-                            <p class="mb-3">
-                              <strong>How it works:</strong> Click Pay Now and select USSD as your payment
-                              method in the Paystack popup. You'll get a code to dial on your phone.
-                            </p>
-                            <button class="btn btn-sm btn-outline-primary mb-0"
-                              type="button" @click="payWithPaystack">
-                              Pay with USSD
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- USSD END -->
-
+                  <!-- Zero-item warning -->
+                  <div class="alert alert-warning" v-if="cart.length === 0">
+                    <i class="bi bi-cart-x me-2"></i>Add at least one item to your order before paying.
                   </div>
-                  <!-- Accordion END -->
+
+                  <div v-else>
+                    <div class="d-sm-flex justify-content-sm-between align-items-center">
+                      <h4 class="mb-0">
+                        ₦{{ totalAmount.toLocaleString() }}
+                        <span class="small fs-6 fw-light"> total</span>
+                      </h4>
+                      <button class="btn btn-primary mb-0 mt-3 mt-sm-0"
+                        type="button" @click="payWithPaystack">
+                        <i class="bi bi-lock-fill me-2"></i>Pay & Place Order
+                      </button>
+                    </div>
+                  </div>
+
                 </div>
-
-                <div class="card-footer p-4 pt-0">
-                  <p class="mb-0">
-                    By proceeding, you accept Bookamia
+                <div class="card-footer p-4 pt-0 mt-3">
+                  <p class="mb-0">By placing your order, you accept Bookamia
                     <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
                   </p>
                 </div>
               </div>
-              <!-- Payment Options END -->
+              <!-- Payment END -->
 
             </div>
           </div>
           <!-- Left content END -->
 
-          <!-- Right sidebar START -->
+          <!-- Order Summary Sidebar START -->
           <aside class="col-xl-4">
-            <div class="row g-4">
+            <div class="sticky-top" style="top:80px;">
 
-              <!-- Price Summary -->
-              <div class="col-md-6 col-xl-12">
-                <div class="card shadow rounded-2">
-                  <div class="card-header border-bottom">
-                    <h5 class="card-title mb-0">Price Summary</h5>
-                  </div>
-                  <div class="card-body">
-                    <ul class="list-group list-group-borderless">
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="h6 fw-light mb-0">
-                          &#8358;{{ eatery.avgPrice.toLocaleString() }} x {{ numberOfGuests }} {{ numberOfGuests === 1 ? 'guest' : 'guests' }}
-                        </span>
-                        <span class="fs-5">&#8358;{{ guestCharges.toLocaleString() }}</span>
-                      </li>
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="h6 fw-light mb-0">Service Charge</span>
-                        <span class="fs-5">&#8358;{{ serviceFee.toLocaleString() }}</span>
-                      </li>
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="h6 fw-light mb-0">Taxes &amp; Fees (7.5%)</span>
-                        <span class="fs-5">&#8358;{{ taxes.toLocaleString() }}</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="card-footer border-top">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <span class="h5 mb-0">Payable Now</span>
-                      <span class="h5 mb-0">&#8358;{{ totalAmount.toLocaleString() }}</span>
-                    </div>
-                  </div>
+              <!-- Cart -->
+              <div class="card shadow rounded-2 mb-4">
+                <div class="card-header border-bottom">
+                  <h5 class="card-title mb-0">
+                    <i class="bi bi-cart3 me-2"></i>Your Order
+                    <span class="badge bg-primary ms-2" v-if="cart.length">{{ cart.length }}</span>
+                  </h5>
                 </div>
-              </div>
+                <div class="card-body">
 
-              <!-- Offer & Discount -->
-              <div class="col-md-6 col-xl-12">
-                <div class="card shadow">
-                  <div class="card-header border-bottom">
-                    <h5 class="mb-0">Offer &amp; Discount</h5>
+                  <!-- Empty cart -->
+                  <div class="text-center py-3 text-muted" v-if="cart.length === 0">
+                    <i class="bi bi-cart-x fs-2 mb-2 d-block"></i>
+                    <small>No items selected yet</small>
                   </div>
-                  <div class="card-body">
-                    <div class="bg-light rounded-2 p-3 mb-3">
-                      <div class="form-check form-check-inline mb-0">
-                        <input class="form-check-input" type="radio" name="discountOptions"
-                          id="discount1" checked>
-                        <label class="form-check-label h5 mb-0" for="discount1">BOOKAMIA10</label>
-                        <p class="mb-1 small">Save 10% on your first dining reservation!</p>
-                        <h6 class="mb-0 text-success">-&#8358;{{ Math.round(guestCharges * 0.1).toLocaleString() }}</h6>
+
+                  <!-- Cart items -->
+                  <ul class="list-group list-group-borderless" v-else>
+                    <li class="list-group-item px-0 d-flex justify-content-between align-items-start"
+                      v-for="ci in cart" :key="ci.item.name">
+                      <div>
+                        <span class="fw-semibold">{{ ci.item.name }}</span>
+                        <div class="small text-muted" v-if="ci.protein">
+                          + {{ ci.protein.name }}
+                        </div>
+                        <div class="small text-muted">qty: {{ ci.quantity }}</div>
                       </div>
-                    </div>
-                    <div class="input-group">
-                      <input class="form-control" placeholder="Coupon code" v-model="couponCode">
-                      <button type="button" class="btn btn-primary">Apply</button>
-                    </div>
-                  </div>
+                      <span class="fw-bold text-success">₦{{ itemTotal(ci).toLocaleString() }}</span>
+                    </li>
+
+                    <!-- Selected extras -->
+                    <template v-if="selectedExtras.length">
+                      <li class="list-group-item px-0"><hr class="my-1"></li>
+                      <li class="list-group-item px-0 d-flex justify-content-between small"
+                        v-for="ex in selectedExtras" :key="ex.name">
+                        <span>{{ ex.name }}</span>
+                        <span class="text-success">₦{{ ex.price.toLocaleString() }}</span>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+
+                <!-- Price breakdown -->
+                <div class="card-footer border-top" v-if="cart.length">
+                  <ul class="list-group list-group-borderless mb-0">
+                    <li class="list-group-item px-0 d-flex justify-content-between">
+                      <span class="text-muted">Subtotal</span>
+                      <span>₦{{ subtotal.toLocaleString() }}</span>
+                    </li>
+                    <li class="list-group-item px-0 d-flex justify-content-between"
+                      v-if="orderType === 'delivery'">
+                      <span class="text-muted">Delivery fee</span>
+                      <span>₦{{ deliveryFee.toLocaleString() }}</span>
+                    </li>
+                    <li class="list-group-item px-0 d-flex justify-content-between">
+                      <span class="text-muted">VAT (7.5%)</span>
+                      <span>₦{{ vat.toLocaleString() }}</span>
+                    </li>
+                    <li class="list-group-item px-0 d-flex justify-content-between fw-bold">
+                      <span>Total</span>
+                      <span class="text-success">₦{{ totalAmount.toLocaleString() }}</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
 
-              <!-- Why Sign Up -->
-              <div class="col-md-6 col-xl-12">
-                <div class="card shadow">
-                  <div class="card-header border-bottom">
-                    <h5 class="card-title mb-0">Why Sign Up or Log In</h5>
-                  </div>
-                  <div class="card-body">
-                    <ul class="list-group list-group-borderless">
-                      <li class="list-group-item d-flex mb-0">
-                        <i class="fa-solid fa-check text-success me-2"></i>
-                        <span class="h6 fw-normal">Get Access to Secret Deals</span>
-                      </li>
-                      <li class="list-group-item d-flex mb-0">
-                        <i class="fa-solid fa-check text-success me-2"></i>
-                        <span class="h6 fw-normal">Book Faster with Saved Details</span>
-                      </li>
-                      <li class="list-group-item d-flex mb-0">
-                        <i class="fa-solid fa-check text-success me-2"></i>
-                        <span class="h6 fw-normal">Manage &amp; Track Your Reservations</span>
-                      </li>
-                      <li class="list-group-item d-flex mb-0">
-                        <i class="fa-solid fa-check text-success me-2"></i>
-                        <span class="h6 fw-normal">Earn Loyalty Rewards</span>
-                      </li>
-                    </ul>
-                    <router-link to="/auth/signup" class="btn btn-primary-soft w-100 mt-3 mb-0">
-                      Create Free Account
-                    </router-link>
-                  </div>
+              <!-- Why sign up -->
+              <div class="card shadow">
+                <div class="card-header border-bottom">
+                  <h5 class="card-title mb-0">Why Sign Up or Log In</h5>
+                </div>
+                <div class="card-body">
+                  <ul class="list-group list-group-borderless">
+                    <li class="list-group-item d-flex mb-0">
+                      <i class="fa-solid fa-check text-success me-2"></i>
+                      <span class="h6 fw-normal">Save your favourite orders</span>
+                    </li>
+                    <li class="list-group-item d-flex mb-0">
+                      <i class="fa-solid fa-check text-success me-2"></i>
+                      <span class="h6 fw-normal">Track your order history</span>
+                    </li>
+                    <li class="list-group-item d-flex mb-0">
+                      <i class="fa-solid fa-check text-success me-2"></i>
+                      <span class="h6 fw-normal">Earn loyalty rewards</span>
+                    </li>
+                  </ul>
+                  <router-link to="/auth/signup" class="btn btn-primary-soft w-100 mt-3 mb-0">
+                    Create Free Account
+                  </router-link>
                 </div>
               </div>
 
             </div>
           </aside>
-          <!-- Right sidebar END -->
+          <!-- Order Summary Sidebar END -->
 
         </div>
       </div>
@@ -459,13 +370,13 @@
   </div>
 
   <div v-else class="container py-5 text-center">
-    <h3>Reservation details not found</h3>
+    <h3>Eatery not found</h3>
     <router-link to="/categories/eatery" class="btn btn-primary mt-3">Back to Eateries</router-link>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { eateries } from '@/data/eateries.js'
 
@@ -474,72 +385,100 @@ const router = useRouter()
 
 const eatery = computed(() => eateries.find(e => e.id === Number(route.params.id)))
 
-// Booking state
-const numberOfGuests   = ref(2)
-const reservationDate  = ref('')
-const arrivalTime      = ref('7:00 pm')
-const selectedDining   = ref('Dine-in')
-const couponCode       = ref('')
+// Order state
+const orderType     = ref('dine-in')
+const activeCategory = ref(0)
+const orderItems    = ref([])   // [{ item, quantity, protein: null }]
+const selectedExtras = ref([])
 
-const diningOptions = ['Dine-in', 'Outdoor Seating', 'Private Dining Room', 'Bar Seating']
+const form = ref({ name: '', phone: '', email: '', address: '', instructions: '' })
 
-const form = ref({
-  title: 'Mr',
-  firstName: '',
-  lastName: '',
-  email: '',
-  phone: '',
+const orderTypes = [
+  { value: 'dine-in',  label: 'Dine-in',   icon: 'bi bi-shop',       desc: 'Eat at the restaurant'  },
+  { value: 'takeaway', label: 'Takeaway',   icon: 'bi bi-bag',        desc: 'Pick up your order'     },
+  { value: 'delivery', label: 'Delivery',   icon: 'bi bi-truck',      desc: 'Delivered to your door' },
+]
+
+// Get or create a cart entry for a menu item
+function getCartItem(item) {
+  let ci = orderItems.value.find(o => o.item.name === item.name)
+  if (!ci) {
+    ci = { item, quantity: 0, protein: null }
+    orderItems.value.push(ci)
+  }
+  return ci
+}
+
+function getQty(item) {
+  return getCartItem(item).quantity
+}
+
+function increment(item) {
+  getCartItem(item).quantity++
+}
+
+function decrement(item) {
+  const ci = getCartItem(item)
+  if (ci.quantity > 0) {
+    ci.quantity--
+    if (ci.quantity === 0) ci.protein = null
+  }
+}
+
+function toggleExtra(extra) {
+  const idx = selectedExtras.value.findIndex(e => e.name === extra.name)
+  if (idx === -1) selectedExtras.value.push(extra)
+  else selectedExtras.value.splice(idx, 1)
+}
+
+function isExtraSelected(extra) {
+  return selectedExtras.value.some(e => e.name === extra.name)
+}
+
+// Cart = only items with qty > 0
+const cart = computed(() => orderItems.value.filter(ci => ci.quantity > 0))
+
+function itemTotal(ci) {
+  const base = (ci.item.price + (ci.protein?.price ?? 0)) * ci.quantity
+  return base
+}
+
+const subtotal = computed(() => {
+  const foodTotal = cart.value.reduce((sum, ci) => sum + itemTotal(ci), 0)
+  const extrasTotal = selectedExtras.value.reduce((sum, e) => sum + e.price, 0)
+  return foodTotal + extrasTotal
 })
 
-const specialRequests = ref([
-  { id: 1, label: 'Window seat',         checked: false },
-  { id: 2, label: 'High chair needed',   checked: false },
-  { id: 3, label: 'Wheelchair access',   checked: false },
-  { id: 4, label: 'Quiet area',          checked: false },
-  { id: 5, label: 'Outdoor seating',     checked: false },
-  { id: 6, label: 'Allergy menu',        checked: false },
-])
-
-const popularBanks = ['GTBank', 'Zenith Bank', 'First Bank', 'Access Bank', 'UBA']
-
-// Price calculations
-const guestCharges = computed(() => (eatery.value?.avgPrice ?? 0) * numberOfGuests.value)
-const serviceFee   = computed(() => 500)
-const taxes        = computed(() => Math.round(guestCharges.value * 0.075))
-const totalAmount  = computed(() => guestCharges.value + serviceFee.value + taxes.value)
-
-onMounted(() => {
-  nextTick(() => {
-    const dateEl = document.querySelector('[data-reservation-date]')
-    if (window.flatpickr && dateEl) {
-      window.flatpickr(dateEl, {
-        dateFormat: 'M j, Y',
-        minDate: 'today',
-        onChange(selectedDates, dateStr) { reservationDate.value = dateStr },
-      })
-    }
-  })
-})
+const deliveryFee = computed(() => orderType.value === 'delivery' ? 1500 : 0)
+const vat         = computed(() => Math.round(subtotal.value * 0.075))
+const totalAmount = computed(() => subtotal.value + deliveryFee.value + vat.value)
 
 function payWithPaystack() {
   if (!form.value.email) {
-    alert('Please enter your email address to proceed with payment.')
+    alert('Please enter your email address to proceed.')
     return
   }
+  if (cart.value.length === 0) {
+    alert('Please add at least one item to your order.')
+    return
+  }
+
+  const orderSummary = cart.value
+    .map(ci => `${ci.item.name}${ci.protein ? ' + ' + ci.protein.name : ''} x${ci.quantity}`)
+    .join(', ')
 
   const handler = window.PaystackPop.setup({
     key: 'pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     email: form.value.email,
     amount: totalAmount.value * 100,
     currency: 'NGN',
-    ref: `BOOKAMIA-EAT-${Date.now()}`,
+    ref: `BOOKAMIA-FOOD-${Date.now()}`,
     metadata: {
       custom_fields: [
-        { display_name: 'Restaurant',    variable_name: 'restaurant', value: eatery.value?.name },
-        { display_name: 'Guest Name',    variable_name: 'guest',      value: `${form.value.firstName} ${form.value.lastName}` },
-        { display_name: 'Guests',        variable_name: 'guests',     value: numberOfGuests.value },
-        { display_name: 'Arrival Time',  variable_name: 'time',       value: arrivalTime.value },
-        { display_name: 'Dining Option', variable_name: 'dining',     value: selectedDining.value },
+        { display_name: 'Restaurant',  variable_name: 'restaurant', value: eatery.value?.name },
+        { display_name: 'Order Type',  variable_name: 'order_type', value: orderType.value },
+        { display_name: 'Order Items', variable_name: 'items',      value: orderSummary },
+        { display_name: 'Customer',    variable_name: 'customer',   value: form.value.name },
       ],
     },
     callback(response) {
@@ -547,8 +486,8 @@ function payWithPaystack() {
         path: '/booking-confirmed',
         query: {
           ref: response.reference,
-          restaurant: eatery.value?.name,
-          guests: numberOfGuests.value,
+          category: 'eatery',
+          hotel: eatery.value?.name,
           amount: totalAmount.value,
         },
       })

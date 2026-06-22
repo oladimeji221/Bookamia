@@ -14,6 +14,7 @@ import HotelBooking from '@/pages/categories/HotelBooking.vue'
 import Eatery from '@/pages/categories/Eatery.vue'
 import EateryDetail from '@/pages/categories/EateryDetail.vue'
 import EateryBooking from '@/pages/categories/EateryBooking.vue'
+import EateryReservation from '@/pages/categories/EateryReservation.vue'
 import Event from '@/pages/categories/Event.vue'
 import EventDetail from '@/pages/categories/EventDetail.vue'
 import EventBooking from '@/pages/categories/EventBooking.vue'
@@ -36,6 +37,17 @@ import BookingConfirmed from '@/pages/BookingConfirmed.vue'
 import Blog from '@/pages/Blog.vue'
 import Contact from '@/pages/Contact.vue'
 
+// User Dashboard
+import UserProfile from '@/pages/user/Profile.vue'
+import UserWishlists from '@/pages/user/Wishlists.vue'
+import UserSettings from '@/pages/user/Settings.vue'
+import UserMessages from '@/pages/user/Messages.vue'
+import UserBookings from '@/pages/user/Bookings.vue'
+import UserWallet from '@/pages/user/Wallet.vue'
+import UserReviews from '@/pages/user/Reviews.vue'
+
+
+
 const routes = [
   { path: '/', component: Home },
 
@@ -51,6 +63,7 @@ const routes = [
   { path: '/categories/eatery', component: Eatery },
   { path: '/categories/eatery/:id', component: EateryDetail },
   { path: '/categories/eatery/:id/booking', component: EateryBooking },
+  { path: '/categories/eatery/:id/reservation', component: EateryReservation },
   { path: '/categories/events', component: Event },
   { path: '/categories/events/:id', component: EventDetail },
   { path: '/categories/events/:id/booking', component: EventBooking },
@@ -74,7 +87,17 @@ const routes = [
   // Misc pages
   { path: '/blog', component: Blog },
   { path: '/contact', component: Contact },
+
+  // User Dashboard
+  { path: '/user/profile', component: UserProfile },
+  { path: '/user/wishlists', component: UserWishlists },
+  { path: '/user/settings', component: UserSettings },
+  { path: '/user/messages', component: UserMessages },
+  { path: '/user/bookings', component: UserBookings },
+  { path: '/user/wallet', component: UserWallet },
+  { path: '/user/reviews', component: UserReviews },
 ]
+
 
 const router = createRouter({
   history: createWebHistory(),

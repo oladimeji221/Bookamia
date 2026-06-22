@@ -370,6 +370,11 @@
               </p>
               <div class="d-grid">
                 <router-link :to="`/categories/eatery/${eatery.id}/booking`" class="btn btn-lg btn-primary mb-0">
+                  <i class="bi bi-bag-check-fill me-2"></i>Place an Order
+                </router-link>
+              </div>
+              <div class="d-grid mt-2">
+                <router-link :to="`/categories/eatery/${eatery.id}/reservation`" class="btn btn-lg btn-outline-primary mb-0">
                   <i class="bi bi-calendar-check me-2"></i>Reserve a Table
                 </router-link>
               </div>
