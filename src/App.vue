@@ -1,11 +1,11 @@
 <template>
   <div class="app">
-    <AppHeader v-if="!isAuthPage" />
+    <AppHeader v-if="!isAuthPage && !isAdminPage" />
     <RouterView />
-    <AppFooter v-if="!isAuthPage" />
+    <AppFooter v-if="!isAuthPage && !isAdminPage" />
 
     <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/" target="_blank" class="whatsapp-float" title="Chat with us on WhatsApp">
+    <a v-if="!isAdminPage" href="https://wa.me/" target="_blank" class="whatsapp-float" title="Chat with us on WhatsApp">
       <i class="fab fa-whatsapp"></i>
     </a>
 
@@ -35,6 +35,7 @@ import AppFooter from '@/components/AppFooter.vue'
 
 const route = useRoute()
 const isAuthPage = computed(() => route.path.startsWith('/auth'))
+const isAdminPage = computed(() => route.path.startsWith('/admin'))
 </script>
 
 <style>

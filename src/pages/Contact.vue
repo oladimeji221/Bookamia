@@ -60,16 +60,16 @@
               <p class="text-muted">Follow us for updates, deals, and travel inspiration.</p>
               <ul class="list-inline mb-0">
                 <li class="list-inline-item">
-                  <a class="btn btn-sm btn-primary px-2 mb-0" href="#"><i class="fab fa-fw fa-facebook-f"></i></a>
+                  <a class="btn btn-sm btn-primary px-2 mb-0" href="https://facebook.com/bookamia" target="_blank" rel="noopener"><i class="fab fa-fw fa-facebook-f"></i></a>
                 </li>
                 <li class="list-inline-item">
-                  <a class="btn btn-sm bg-danger px-2 mb-0 text-white" href="#"><i class="fab fa-fw fa-instagram"></i></a>
+                  <a class="btn btn-sm bg-danger px-2 mb-0 text-white" href="https://instagram.com/bookamia" target="_blank" rel="noopener"><i class="fab fa-fw fa-instagram"></i></a>
                 </li>
                 <li class="list-inline-item">
-                  <a class="btn btn-sm btn-info px-2 mb-0 text-white" href="#"><i class="fab fa-fw fa-twitter"></i></a>
+                  <a class="btn btn-sm btn-info px-2 mb-0 text-white" href="https://x.com/bookamia" target="_blank" rel="noopener"><i class="fab fa-fw fa-twitter"></i></a>
                 </li>
                 <li class="list-inline-item">
-                  <a class="btn btn-sm btn-primary px-2 mb-0" style="background:#0077b5; border-color:#0077b5;" href="#"><i class="fab fa-fw fa-linkedin-in"></i></a>
+                  <a class="btn btn-sm btn-primary px-2 mb-0" style="background:#0077b5; border-color:#0077b5;" href="https://linkedin.com/company/bookamia" target="_blank" rel="noopener"><i class="fab fa-fw fa-linkedin-in"></i></a>
                 </li>
               </ul>
             </div>

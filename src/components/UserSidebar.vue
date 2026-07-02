@@ -26,7 +26,7 @@
                 <img class="avatar-img rounded-circle border border-2 border-white" src="/assets/images/avatar/04.jpg" alt="">
               </div>
               <h6 class="mb-0">John Doe</h6>
-              <a href="#" class="text-reset text-primary-hover small">hello@gmail.com</a>
+              <router-link to="/user/profile" class="text-reset text-primary-hover small">hello@gmail.com</router-link>
               <hr>
             </div>
 
@@ -42,6 +42,9 @@
                 <router-link class="nav-link" active-class="active" to="/user/reviews"><i class="bi bi-star fa-fw me-2"></i>My Reviews</router-link>
               </li>
               <li class="nav-item">
+                <router-link class="nav-link" active-class="active" to="/user/messages"><i class="bi bi-chat-dots fa-fw me-2"></i>Messages</router-link>
+              </li>
+              <li class="nav-item">
                 <router-link class="nav-link" active-class="active" to="/user/wallet"><i class="bi bi-wallet fa-fw me-2"></i>Wallet</router-link>
               </li>
               <li class="nav-item">
@@ -51,7 +54,7 @@
                 <router-link class="nav-link" active-class="active" to="/user/settings"><i class="bi bi-gear fa-fw me-2"></i>Settings</router-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-danger bg-danger-soft-hover" href="#"><i class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
+                <a class="nav-link text-danger bg-danger-soft-hover" href="#" @click.prevent><i class="bi bi-box-arrow-right fa-fw me-2"></i>Sign Out</a>
               </li>
             </ul>
             <!-- Sidebar menu item END -->

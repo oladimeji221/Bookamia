@@ -32,27 +32,27 @@
           <div class="col-lg-6">
             <div class="card bg-transparent h-100">
               <div class="position-relative">
-                <img src="/assets/images/category/hotel/resort/bg-01.jpg"
+                <img :src="featuredPost.image"
                      class="card-img rounded-3"
                      style="height: 340px; object-fit: cover;"
                      alt="Featured post">
                 <div class="card-img-overlay d-flex align-items-start flex-column p-3">
-                  <a href="#" class="badge bg-dark">Travel</a>
+                  <span class="badge bg-dark">{{ featuredPost.category }}</span>
                 </div>
               </div>
               <div class="card-body px-2 pb-0">
-                <span class="small text-muted"><i class="bi bi-calendar2-plus me-2"></i>April 10, 2026</span>
+                <span class="small text-muted"><i class="bi bi-calendar2-plus me-2"></i>{{ featuredPost.date }}</span>
                 <h5 class="card-title mt-1">
-                  <a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#comingSoonModal">
-                    Top 10 Hotels to Visit in Nigeria This Season
-                  </a>
+                  <router-link :to="`/blog/${featuredPost.id}`" class="text-dark text-decoration-none">
+                    {{ featuredPost.title }}
+                  </router-link>
                 </h5>
-                <p class="mb-0 text-muted">Discover the most breathtaking hotel destinations across Nigeria that you should add to your travel list.</p>
+                <p class="mb-0 text-muted">{{ featuredPost.excerpt }}</p>
                 <div class="d-flex justify-content-between align-items-center mt-2">
-                  <h6 class="mb-0">By <a href="#" class="text-decoration-none">Bookamia Team</a></h6>
-                  <a href="#" class="btn btn-link p-0 mb-0" data-bs-toggle="modal" data-bs-target="#comingSoonModal">
+                  <h6 class="mb-0">By <span class="text-primary">{{ featuredPost.author }}</span></h6>
+                  <router-link :to="`/blog/${featuredPost.id}`" class="btn btn-link p-0 mb-0">
                     Read more <i class="bi bi-arrow-up-right"></i>
-                  </a>
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -71,15 +71,15 @@
                   <div class="col-8">
                     <div class="card-body p-0">
                       <h6 class="card-title mb-2">
-                        <a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#comingSoonModal">
+                        <router-link :to="`/blog/${post.id}`" class="text-dark text-decoration-none">
                           {{ post.title }}
-                        </a>
+                        </router-link>
                       </h6>
                       <div class="d-flex justify-content-between align-items-center">
                         <span class="small text-muted"><i class="bi bi-calendar2-plus me-1"></i>{{ post.date }}</span>
-                        <a href="#" class="btn btn-link p-0 mb-0 small" data-bs-toggle="modal" data-bs-target="#comingSoonModal">
+                        <router-link :to="`/blog/${post.id}`" class="btn btn-link p-0 mb-0 small">
                           Read more <i class="bi bi-arrow-up-right"></i>
-                        </a>
+                        </router-link>
                       </div>
                     </div>
                   </div>
@@ -117,7 +117,7 @@
               <div class="position-relative">
                 <img :src="blog.image" class="card-img rounded-3" style="height: 210px; object-fit: cover;" :alt="blog.title">
                 <div class="card-img-overlay p-3">
-                  <a href="#" class="badge text-bg-primary">{{ blog.category }}</a>
+                  <span class="badge text-bg-primary">{{ blog.category }}</span>
                 </div>
               </div>
               <div class="card-body p-3 pb-0 d-flex flex-column">
@@ -127,15 +127,15 @@
                   <i class="bi bi-chat-dots me-1"></i>{{ blog.comments }}
                 </span>
                 <h5 class="card-title mt-1 flex-grow-1">
-                  <a href="#" class="text-dark text-decoration-none" data-bs-toggle="modal" data-bs-target="#comingSoonModal">
+                  <router-link :to="`/blog/${blog.id}`" class="text-dark text-decoration-none">
                     {{ blog.title }}
-                  </a>
+                  </router-link>
                 </h5>
                 <div class="d-flex justify-content-between align-items-center mt-2 pb-3">
-                  <h6 class="fw-light mb-0">By <a href="#" class="text-decoration-none">{{ blog.author }}</a></h6>
-                  <a href="#" class="btn btn-link p-0 mb-0 small" data-bs-toggle="modal" data-bs-target="#comingSoonModal">
+                  <h6 class="fw-light mb-0">By <span class="text-primary">{{ blog.author }}</span></h6>
+                  <router-link :to="`/blog/${blog.id}`" class="btn btn-link p-0 mb-0 small">
                     Read more <i class="bi bi-arrow-up-right"></i>
-                  </a>
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -192,25 +192,14 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { blogs, featuredPost } from '@/data/blogs'
 
 const search = ref('')
 const subscribed = ref(false)
 const subscriberEmail = ref('')
 
-const sidePosts = [
-  { id: 1, title: 'Best Eateries to Try in Lagos This Weekend', date: 'Apr 8, 2026', image: '/assets/images/category/hotel/01.jpg' },
-  { id: 2, title: 'How to Book a Cab Across Nigeria — Tips & Tricks', date: 'Apr 5, 2026', image: '/assets/images/category/hotel/02.jpg' },
-  { id: 3, title: '5 Must-See Events Coming to Abuja This Month', date: 'Apr 2, 2026', image: '/assets/images/category/hotel/03.jpg' },
-]
-
-const blogs = [
-  { id: 1, title: 'Top Hotels for Business Travelers in Abuja', category: 'Hotels', date: 'Apr 10, 2026', comments: 12, author: 'Bookamia Team', image: '/assets/images/category/hotel/01.jpg' },
-  { id: 2, title: 'Nigerian Cuisine: A Guide to the Best Local Dishes', category: 'Food', date: 'Apr 7, 2026', comments: 8, author: 'Bookamia Team', image: '/assets/images/category/hotel/02.jpg' },
-  { id: 3, title: 'Planning a Road Trip? Here\'s What You Need to Know', category: 'Travel', date: 'Apr 4, 2026', comments: 5, author: 'Bookamia Team', image: '/assets/images/category/hotel/03.jpg' },
-  { id: 4, title: 'Nollywood Highlights: Movies to Watch This Season', category: 'Movies', date: 'Apr 1, 2026', comments: 19, author: 'Bookamia Team', image: '/assets/images/category/hotel/04.jpg' },
-  { id: 5, title: 'Weekend Getaways: Top Resorts Near Port Harcourt', category: 'Hotels', date: 'Mar 28, 2026', comments: 7, author: 'Bookamia Team', image: '/assets/images/category/hotel/01.jpg' },
-  { id: 6, title: 'How Bookamia is Changing Online Booking in Nigeria', category: 'News', date: 'Mar 25, 2026', comments: 22, author: 'Bookamia Team', image: '/assets/images/category/hotel/02.jpg' },
-]
+// Side list: the three most recent posts after the featured one
+const sidePosts = [blogs[6], blogs[7], blogs[8]]
 
 const filteredBlogs = computed(() => {
   if (!search.value) return blogs

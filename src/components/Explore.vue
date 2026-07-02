@@ -19,7 +19,7 @@ Near by START -->
 					<img src="/assets/images/category/hotel/nearby/01.jpg" class="rounded-circle mx-auto" alt="" style="width:150px; height:150px; object-fit:cover;">
 
 					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Lagos Island</a></h5>
+						<h5 class="card-title"><a href="/categories/hotels" class="stretched-link">Lagos Island</a></h5>
 						<span>15 min drive</span>
 					</div>
 				</div>
@@ -33,7 +33,7 @@ Near by START -->
 					<img src="/assets/images/category/hotel/nearby/abuja.jpeg" class="rounded-circle mx-auto" alt="" style="width:150px; height:150px; object-fit:cover;">
 
 					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Abuja</a></h5>
+						<h5 class="card-title"><a href="/categories/hotels" class="stretched-link">Abuja</a></h5>
 						<span>45 min drive</span>
 					</div>
 				</div>
@@ -47,7 +47,7 @@ Near by START -->
 					<img src="/assets/images/category/hotel/nearby/port_harcourt.jpeg" class="rounded-circle mx-auto" alt="" style="width:150px; height:150px; object-fit:cover;">
 
 					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Port Harcourt</a></h5>
+						<h5 class="card-title"><a href="/categories/hotels" class="stretched-link">Port Harcourt</a></h5>
 						<span>1-hour drive</span>
 					</div>
 				</div>
@@ -61,7 +61,7 @@ Near by START -->
 					<img src="/assets/images/category/hotel/nearby/ibadan.jpg" class="rounded-circle mx-auto" alt="" style="width:150px; height:150px; object-fit:cover;">
 
 					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Ibadan</a></h5>
+						<h5 class="card-title"><a href="/categories/hotels" class="stretched-link">Ibadan</a></h5>
 						<span>55 min drive</span>
 					</div>
 				</div>
@@ -75,7 +75,7 @@ Near by START -->
 					<img src="/assets/images/category/hotel/nearby/kano.jpeg" class="rounded-circle mx-auto" alt="" style="width:150px; height:150px; object-fit:cover;">
 
 					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Kano</a></h5>
+						<h5 class="card-title"><a href="/categories/hotels" class="stretched-link">Kano</a></h5>
 						<span>3-hour drive</span>
 					</div>
 				</div>
@@ -89,7 +89,7 @@ Near by START -->
 					<img src="/assets/images/category/hotel/nearby/enugu.jpg" class="rounded-circle mx-auto" alt="" style="width:150px; height:150px; object-fit:cover;">
 
 					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Enugu</a></h5>
+						<h5 class="card-title"><a href="/categories/hotels" class="stretched-link">Enugu</a></h5>
 						<span>2-hour drive</span>
 					</div>
 				</div>
@@ -103,7 +103,7 @@ Near by START -->
 					<img src="/assets/images/category/hotel/nearby/benin.jpg" class="rounded-circle mx-auto" alt="" style="width:150px; height:150px; object-fit:cover;">
 
 					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Benin City</a></h5>
+						<h5 class="card-title"><a href="/categories/hotels" class="stretched-link">Benin City</a></h5>
 						<span>1.5-hour drive</span>
 					</div>
 				</div>
@@ -117,7 +117,7 @@ Near by START -->
 					<img src="/assets/images/category/hotel/nearby/kaduna.jpg" class="rounded-circle mx-auto" alt="" style="width:150px; height:150px; object-fit:cover;">
 
 					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Kaduna</a></h5>
+						<h5 class="card-title"><a href="/categories/hotels" class="stretched-link">Kaduna</a></h5>
 						<span>3.5-hour drive</span>
 					</div>
 				</div>
@@ -131,7 +131,7 @@ Near by START -->
 					<img src="/assets/images/category/hotel/nearby/owerri.jpeg" class="rounded-circle mx-auto" alt="" style="width:150px; height:150px; object-fit:cover;">
 
 					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Owerri</a></h5>
+						<h5 class="card-title"><a href="/categories/hotels" class="stretched-link">Owerri</a></h5>
 						<span>2.5-hour drive</span>
 					</div>
 				</div>
@@ -145,7 +145,7 @@ Near by START -->
 					<img src="/assets/images/category/hotel/nearby/uyo.jpg" class="rounded-circle mx-auto" alt="" style="width:150px; height:150px; object-fit:cover;">
 
 					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Uyo</a></h5>
+						<h5 class="card-title"><a href="/categories/hotels" class="stretched-link">Uyo</a></h5>
 						<span>2-hour drive</span>
 					</div>
 				</div>
@@ -159,7 +159,7 @@ Near by START -->
 					<img src="/assets/images/category/hotel/nearby/ondo.jpg" class="rounded-circle mx-auto" alt="" style="width:150px; height:150px; object-fit:cover;">
 
 					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Ondo</a></h5>
+						<h5 class="card-title"><a href="/categories/hotels" class="stretched-link">Ondo</a></h5>
 						<span>1-hour drive</span>
 					</div>
 				</div>
@@ -173,7 +173,7 @@ Near by START -->
 					<img src="/assets/images/category/hotel/nearby/jos.jpg" class="rounded-circle mx-auto" alt="" style="width:150px; height:150px; object-fit:cover;">
 
 					<div class="card-body p-0 pt-3">
-						<h5 class="card-title"><a href="#" class="stretched-link">Jos</a></h5>
+						<h5 class="card-title"><a href="/categories/hotels" class="stretched-link">Jos</a></h5>
 						<span>4-hour drive</span>
 					</div>
 				</div>

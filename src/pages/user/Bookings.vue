@@ -61,7 +61,7 @@
                             <div class="mt-2 mt-md-0 text-md-end">
                               <span :class="getStatusClass(booking.status)" class="badge mb-2 d-block d-md-inline-block">{{ booking.status }}</span>
                               <div>
-                                  <a href="#" class="btn btn-sm btn-primary-soft mb-0">Manage</a>
+                                  <button class="btn btn-sm btn-primary-soft mb-0" @click="managing = booking">Manage</button>
                               </div>
                             </div>
                           </div>
@@ -103,10 +103,10 @@
                           <div class="col-md-9">
                             <h6>Looks like you have no {{ activeStatusLabel.toLowerCase() }} bookings</h6>
                             <h4 class="mb-2">When you book, your trip will be shown here.</h4>
-                            <router-link to="/" class="btn btn-primary mb-0">Start booking now</router-link>
+                            <router-link to="/" class="btn btn-primary mb-0"><i class="bi bi-search fa-fw me-1"></i>Start booking now</router-link>
                           </div>
-                          <div class="col-md-3 text-end">
-                            <img src="" class="mb-n5" alt="">
+                          <div class="col-md-3 text-center d-none d-md-block">
+                            <i class="bi bi-luggage display-1 text-primary opacity-25"></i>
                           </div>
                         </div>
                       </div>
@@ -120,6 +120,44 @@
         </div>
       </div>
     </section>
+
+    <!-- Manage booking modal -->
+    <div v-if="managing" class="modal-backdrop-custom" @click.self="managing = null">
+      <div class="card border-0 shadow modal-card-custom">
+        <div class="card-header border-bottom d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Manage booking</h5>
+          <button class="btn btn-sm btn-round btn-light mb-0" @click="managing = null"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-3">
+            <div class="icon-lg bg-primary bg-opacity-10 text-primary rounded-circle flex-shrink-0">
+              <i :class="getCategoryIcon(managing.type)"></i>
+            </div>
+            <div class="ms-3">
+              <h6 class="mb-0">{{ managing.title }}</h6>
+              <span class="small text-muted">{{ managing.subType }} · {{ managing.bookingId }}</span>
+            </div>
+            <span :class="getStatusClass(managing.status)" class="badge ms-auto">{{ managing.status }}</span>
+          </div>
+          <ul class="list-group list-group-borderless mb-0">
+            <li class="list-group-item px-0 d-flex justify-content-between"><span class="text-muted">{{ managing.label1 }}</span><span>{{ managing.value1 }}</span></li>
+            <li class="list-group-item px-0 d-flex justify-content-between"><span class="text-muted">{{ managing.label2 }}</span><span>{{ managing.value2 }}</span></li>
+            <li class="list-group-item px-0 d-flex justify-content-between"><span class="text-muted"><i class="bi bi-geo-alt me-2"></i>Location</span><span>{{ managing.location }}</span></li>
+            <li class="list-group-item px-0 d-flex justify-content-between"><span class="text-muted"><i class="bi bi-cash me-2"></i>Amount</span><h6 class="mb-0">₦{{ managing.amount.toLocaleString() }}</h6></li>
+          </ul>
+        </div>
+        <div class="card-footer border-top d-flex justify-content-end gap-2">
+          <template v-if="managing.status === 'Upcoming'">
+            <button class="btn btn-danger-soft mb-0" @click="cancelBooking(managing)"><i class="bi bi-x-circle fa-fw me-1"></i>Cancel booking</button>
+            <router-link to="/contact" class="btn btn-primary mb-0"><i class="bi bi-headset fa-fw me-1"></i>Contact support</router-link>
+          </template>
+          <template v-else>
+            <router-link to="/user/reviews" class="btn btn-primary-soft mb-0"><i class="bi bi-star fa-fw me-1"></i>Write a review</router-link>
+            <button class="btn btn-light mb-0" @click="managing = null">Close</button>
+          </template>
+        </div>
+      </div>
+    </div>
   </main>
 </template>
 
@@ -132,6 +170,12 @@ import DashboardPagination from '@/components/DashboardPagination.vue'
 const activeStatus = ref('upcoming')
 const currentPage = ref(1)
 const itemsPerPage = ref(3) // Showing 3 items per page for demo
+const managing = ref(null)
+
+const cancelBooking = (booking) => {
+  booking.status = 'Canceled'
+  managing.value = null
+}
 
 const statusTabs = [
   { id: 'upcoming', label: 'Upcoming', icon: 'bi bi-briefcase-fill fa-fw me-1' },
@@ -145,7 +189,7 @@ const activeStatusLabel = computed(() => {
 
 const bookings = ref([
   { id: 1, type: 'Hotels', title: 'Eko Hotels & Suites', bookingId: 'BK-H7421', subType: 'Executive Suite', status: 'Upcoming', label1: 'Check-in', value1: 'Tue 05 Aug', label2: 'Check-out', value2: 'Fri 08 Aug', location: 'Victoria Island, Lagos', amount: 150000, bookedBy: 'John Doe' },
-  { id: 2, type: 'Cabs', title: 'Lagos Airport Transfer', bookingId: 'BK-C9902', subType: 'Private SUV', status: 'Upcoming', label1: 'Pickup Time', value1: 'Tue 05 Aug 09:00 AM', label2: 'Duration', value2: '1.5 Hours', location: 'JFK to Manhattan', amount: 25000, bookedBy: 'John Doe' },
+  { id: 2, type: 'Cabs', title: 'Lagos Airport Transfer', bookingId: 'BK-C9902', subType: 'Private SUV', status: 'Upcoming', label1: 'Pickup Time', value1: 'Tue 05 Aug 09:00 AM', label2: 'Duration', value2: '1.5 Hours', location: 'MMA2 to Victoria Island', amount: 25000, bookedBy: 'John Doe' },
   { id: 3, type: 'Eatery', title: 'Nok by Alara', bookingId: 'BK-E1103', subType: 'Fine Dining', status: 'Canceled', label1: 'Reservation', value1: 'Wed 12 Aug 07:30 PM', label2: 'Guests', value2: '4 People', location: 'Victoria Island, Lagos', amount: 45000, bookedBy: 'John Doe' },
   { id: 4, type: 'Events', title: 'Davido Timeless Tour', bookingId: 'BK-V5582', subType: 'VIP Access', status: 'Completed', label1: 'Event Date', value1: 'Sat 10 Jul 06:00 PM', label2: 'Seats', value2: 'Block B, Row 5', location: 'Eko Convention Centre', amount: 50000, bookedBy: 'John Doe' },
   { id: 5, type: 'Movies', title: 'Black Panther: Wakanda Forever', bookingId: 'BK-M4419', subType: '4DX Cinema', status: 'Upcoming', label1: 'Showtime', value1: 'Sun 15 Aug 08:00 PM', label2: 'Screen', value2: 'Cinema 3, Seat G12', location: 'Filmhouse IMAX, Lekki', amount: 7500, bookedBy: 'John Doe' },
@@ -192,5 +236,21 @@ const getStatusClass = (status) => {
     line-height: 3.5rem;
     text-align: center;
     font-size: 1.5rem;
+}
+.modal-backdrop-custom {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1055;
+  padding: 1rem;
+}
+.modal-card-custom {
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 </style>

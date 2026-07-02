@@ -42,7 +42,7 @@
                           <h6 class="mb-0">Active Sessions</h6>
                           <p class="small mb-0">Manage your logged in devices</p>
                         </div>
-                        <a href="#" class="btn btn-sm btn-light mb-0">View all</a>
+                        <a href="#" class="btn btn-sm btn-light mb-0" data-bs-toggle="modal" data-bs-target="#comingSoonModal">View all</a>
                       </div>
                     </div>
                   </div>

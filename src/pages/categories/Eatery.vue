@@ -206,7 +206,7 @@
                       </div>
                       <!-- Name -->
                       <h5 class="card-title mb-1 mt-2">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">{{ place.name }}</a>
+                        <router-link :to="`/categories/eatery/${place.id}`">{{ place.name }}</router-link>
                       </h5>
                       <small><i class="bi bi-geo-alt me-2"></i>{{ place.location }}</small>
                       <!-- Tags -->

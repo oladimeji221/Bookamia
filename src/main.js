@@ -1,7 +1,11 @@
 import { createApp, nextTick } from 'vue'
 import { createPinia } from 'pinia'
+import * as bootstrap from 'bootstrap'
 import App from './App.vue'
 import router from './router'
+
+// Theme functions.js expects a global `bootstrap` (tooltips, popovers, offcanvas, dropdowns)
+window.bootstrap = bootstrap
 
 createApp(App).use(createPinia()).use(router).mount('#app')
 

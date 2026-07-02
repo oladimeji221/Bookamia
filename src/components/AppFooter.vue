@@ -38,7 +38,7 @@
 							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/about">About us</RouterLink></li>
 							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/contact">Contact us</RouterLink></li>
 							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/blog">Blog</RouterLink></li>
-							<li class="nav-item"><a class="nav-link text-body-secondary" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">FAQ</a></li>
+							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/faq">FAQ</RouterLink></li>
 						</ul>
 					</div>
 
@@ -48,9 +48,9 @@
 						<ul class="nav flex-column text-primary-hover">
 							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/auth/signup">Sign up</RouterLink></li>
 							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/auth/login">Sign in</RouterLink></li>
-							<li class="nav-item"><a class="nav-link text-body-secondary" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Privacy Policy</a></li>
-							<li class="nav-item"><a class="nav-link text-body-secondary" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Terms</a></li>
-							<li class="nav-item"><a class="nav-link text-body-secondary" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Refund Policy</a></li>
+							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/privacy">Privacy Policy</RouterLink></li>
+							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/terms">Terms</RouterLink></li>
+							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/refund-policy">Refund Policy</RouterLink></li>
 						</ul>
 					</div>
 
@@ -58,12 +58,12 @@
 					<div class="col-6 col-md-3">
 						<h5 class="text-white mb-2 mb-md-4">Popular Cities</h5>
 						<ul class="nav flex-column text-primary-hover">
-							<li class="nav-item"><a class="nav-link text-body-secondary" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Lagos</a></li>
-							<li class="nav-item"><a class="nav-link text-body-secondary" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Abuja</a></li>
-							<li class="nav-item"><a class="nav-link text-body-secondary" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Port Harcourt</a></li>
-							<li class="nav-item"><a class="nav-link text-body-secondary" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Ibadan</a></li>
-							<li class="nav-item"><a class="nav-link text-body-secondary" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Kano</a></li>
-							<li class="nav-item"><a class="nav-link text-body-secondary" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Enugu</a></li>
+							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/categories/hotels">Lagos</RouterLink></li>
+							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/categories/hotels">Abuja</RouterLink></li>
+							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/categories/hotels">Port Harcourt</RouterLink></li>
+							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/categories/hotels">Ibadan</RouterLink></li>
+							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/categories/hotels">Kano</RouterLink></li>
+							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/categories/hotels">Enugu</RouterLink></li>
 						</ul>
 					</div>
 
@@ -71,11 +71,11 @@
 					<div class="col-6 col-md-3">
 						<h5 class="text-white mb-2 mb-md-4">Our Services</h5>
 						<ul class="nav flex-column text-primary-hover">
-							<li class="nav-item"><a class="nav-link text-body-secondary" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal"><i class="fa-solid fa-hotel me-2"></i>Hotels</a></li>
-							<li class="nav-item"><a class="nav-link text-body-secondary" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal"><i class="fa-solid fa-utensils me-2"></i>Eateries</a></li>
-							<li class="nav-item"><a class="nav-link text-body-secondary" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal"><i class="fa-solid fa-calendar-days me-2"></i>Events</a></li>
-							<li class="nav-item"><a class="nav-link text-body-secondary" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal"><i class="fa-solid fa-car me-2"></i>Cabs</a></li>
-							<li class="nav-item"><a class="nav-link text-body-secondary" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal"><i class="fa-solid fa-film me-2"></i>Movies</a></li>
+							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/categories/hotels"><i class="fa-solid fa-hotel me-2"></i>Hotels</RouterLink></li>
+							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/categories/eatery"><i class="fa-solid fa-utensils me-2"></i>Eateries</RouterLink></li>
+							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/categories/events"><i class="fa-solid fa-calendar-days me-2"></i>Events</RouterLink></li>
+							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/categories/cabs"><i class="fa-solid fa-car me-2"></i>Cabs</RouterLink></li>
+							<li class="nav-item"><RouterLink class="nav-link text-body-secondary" to="/categories/movies"><i class="fa-solid fa-film me-2"></i>Movies</RouterLink></li>
 						</ul>
 					</div>
 				</div>
@@ -88,17 +88,17 @@
 		<div class="row mt-5">
 			<h5 class="mb-2 text-white">Top Links</h5>
 			<ul class="list-inline text-primary-hover lh-lg">
-				<li class="list-inline-item"><a href="#" class="text-body-secondary" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Hotels</a></li>
-				<li class="list-inline-item"><a href="#" class="text-body-secondary" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Eateries</a></li>
-				<li class="list-inline-item"><a href="#" class="text-body-secondary" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Events</a></li>
-				<li class="list-inline-item"><a href="#" class="text-body-secondary" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Cabs</a></li>
-				<li class="list-inline-item"><a href="#" class="text-body-secondary" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Movies</a></li>
+				<li class="list-inline-item"><RouterLink to="/categories/hotels" class="text-body-secondary">Hotels</RouterLink></li>
+				<li class="list-inline-item"><RouterLink to="/categories/eatery" class="text-body-secondary">Eateries</RouterLink></li>
+				<li class="list-inline-item"><RouterLink to="/categories/events" class="text-body-secondary">Events</RouterLink></li>
+				<li class="list-inline-item"><RouterLink to="/categories/cabs" class="text-body-secondary">Cabs</RouterLink></li>
+				<li class="list-inline-item"><RouterLink to="/categories/movies" class="text-body-secondary">Movies</RouterLink></li>
 				<li class="list-inline-item"><RouterLink to="/blog" class="text-body-secondary">Blog</RouterLink></li>
 				<li class="list-inline-item"><RouterLink to="/about" class="text-body-secondary">About us</RouterLink></li>
 				<li class="list-inline-item"><RouterLink to="/contact" class="text-body-secondary">Contact us</RouterLink></li>
-				<li class="list-inline-item"><a href="#" class="text-body-secondary" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Privacy Policy</a></li>
-				<li class="list-inline-item"><a href="#" class="text-body-secondary" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Terms &amp; Conditions</a></li>
-				<li class="list-inline-item"><a href="#" class="text-body-secondary" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Refund Policy</a></li>
+				<li class="list-inline-item"><RouterLink to="/privacy" class="text-body-secondary">Privacy Policy</RouterLink></li>
+				<li class="list-inline-item"><RouterLink to="/terms" class="text-body-secondary">Terms &amp; Conditions</RouterLink></li>
+				<li class="list-inline-item"><RouterLink to="/refund-policy" class="text-body-secondary">Refund Policy</RouterLink></li>
 			</ul>
 		</div>
 
@@ -108,10 +108,10 @@
 			<div class="col-sm-5 col-md-6 col-lg-3 text-sm-end">
 				<h5 class="text-white mb-2">Follow us on</h5>
 				<ul class="list-inline mb-0 mt-3">
-					<li class="list-inline-item"> <a class="btn btn-sm px-2 bg-facebook mb-0" href="#"><i class="fab fa-fw fa-facebook-f"></i></a> </li>
-					<li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-instagram mb-0" href="#"><i class="fab fa-fw fa-instagram"></i></a> </li>
-					<li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-twitter mb-0" href="#"><i class="fab fa-fw fa-twitter"></i></a> </li>
-					<li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-linkedin mb-0" href="#"><i class="fab fa-fw fa-linkedin-in"></i></a> </li>
+					<li class="list-inline-item"> <a class="btn btn-sm px-2 bg-facebook mb-0" href="https://facebook.com/bookamia" target="_blank" rel="noopener"><i class="fab fa-fw fa-facebook-f"></i></a> </li>
+					<li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-instagram mb-0" href="https://instagram.com/bookamia" target="_blank" rel="noopener"><i class="fab fa-fw fa-instagram"></i></a> </li>
+					<li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-twitter mb-0" href="https://x.com/bookamia" target="_blank" rel="noopener"><i class="fab fa-fw fa-twitter"></i></a> </li>
+					<li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-linkedin mb-0" href="https://linkedin.com/company/bookamia" target="_blank" rel="noopener"><i class="fab fa-fw fa-linkedin-in"></i></a> </li>
 				</ul>
 			</div>
 		</div>
@@ -128,9 +128,9 @@
 					<!-- copyright links-->
 					<div class="nav mt-2 mt-lg-0">
 						<ul class="list-inline text-primary-hover mx-auto mb-0">
-							<li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Privacy policy</a></li>
-							<li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Terms and conditions</a></li>
-							<li class="list-inline-item me-0"><a class="nav-link text-body-secondary py-1 pe-0" href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Refund policy</a></li>
+							<li class="list-inline-item me-0"><RouterLink class="nav-link text-body-secondary py-1" to="/privacy">Privacy policy</RouterLink></li>
+							<li class="list-inline-item me-0"><RouterLink class="nav-link text-body-secondary py-1" to="/terms">Terms and conditions</RouterLink></li>
+							<li class="list-inline-item me-0"><RouterLink class="nav-link text-body-secondary py-1 pe-0" to="/refund-policy">Refund policy</RouterLink></li>
 						</ul>
 					</div>
 				</div>

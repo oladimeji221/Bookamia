@@ -40,11 +40,11 @@
                                    <span class="badge bg-primary bg-opacity-10 text-primary">{{ item.category }}</span>
                                    <button class="btn btn-sm btn-white mb-0" @click="removeFromWishlist(item.id)"><i class="bi bi-heart-fill text-danger"></i></button>
                                 </div>
-                                <h5 class="card-title mb-1"><a href="#">{{ item.name }}</a></h5>
+                                <h5 class="card-title mb-1"><router-link :to="categoryRoute(item.category)">{{ item.name }}</router-link></h5>
                                 <p class="small mb-0"><i class="bi bi-geo-alt me-2"></i>{{ item.location }}</p>
                                 <div class="d-flex justify-content-between align-items-center mt-auto pt-3">
                                    <h6 class="mb-0 text-primary">₦{{ item.price.toLocaleString() }} <span class="small text-muted fw-light">/{{ item.unit }}</span></h6>
-                                   <router-link to="/" class="btn btn-sm btn-primary mb-0">Book Now</router-link>
+                                   <router-link :to="categoryRoute(item.category)" class="btn btn-sm btn-primary mb-0">Book Now</router-link>
                                 </div>
                              </div>
                           </div>
@@ -87,9 +87,9 @@ const itemsPerPage = ref(2) // Showing 2 items per page for demo
 
 const wishlist = ref([
   { id: 1, name: 'Radisson Blu Anchorage', category: 'Hotels', price: 85000, unit: 'night', location: 'Victoria Island, Lagos', image: '/assets/images/category/hotel/01.jpg' },
-  { id: 2, name: 'Ocean Basket', category: 'Eatery', price: 15000, unit: 'avg', location: 'Ikeja, Lagos', image: '/assets/images/category/hotel/02.jpg' },
-  { id: 3, name: 'Davido Concert', category: 'Events', price: 25000, unit: 'ticket', location: 'Eko Hotel, Lagos', image: '/assets/images/category/hotel/03.jpg' },
-  { id: 4, name: 'Filmhouse IMAX', category: 'Movies', price: 5000, unit: 'ticket', location: 'Lekki, Lagos', image: '/assets/images/category/hotel/04.jpg' }
+  { id: 2, name: 'Ocean Basket', category: 'Eatery', price: 15000, unit: 'avg', location: 'Ikeja, Lagos', image: '/assets/images/category/eateries/nkoyo.jpg' },
+  { id: 3, name: 'Davido Concert', category: 'Events', price: 25000, unit: 'ticket', location: 'Eko Hotel, Lagos', image: '/assets/images/category/event/concert.jpg' },
+  { id: 4, name: 'Filmhouse IMAX', category: 'Movies', price: 5000, unit: 'ticket', location: 'Lekki, Lagos', image: '/assets/images/category/movie/cinema.jpg' }
 ])
 
 const totalItems = computed(() => wishlist.value.length)
@@ -103,6 +103,14 @@ const paginatedWishlist = computed(() => {
 const removeFromWishlist = (id) => {
   wishlist.value = wishlist.value.filter(item => item.id !== id)
 }
+
+const categoryRoute = (category) => ({
+  Hotels: '/categories/hotels',
+  Cabs: '/categories/cabs',
+  Eatery: '/categories/eatery',
+  Events: '/categories/events',
+  Movies: '/categories/movies',
+}[category] || '/')
 </script>
 
 <style scoped>

@@ -23,7 +23,7 @@
 					<!-- Buttons -->
 					<div class="hstack gap-4 flex-wrap align-items-center">
 						<!-- Button -->
-						<a href="#" class="btn btn-primary mb-0">Discover Now</a>
+						<router-link to="/categories/hotels" class="btn btn-primary mb-0">Discover Now</router-link>
 						<!-- Story button -->
 						<!-- <a data-glightbox="" data-gallery="office-tour" href="../../../www.youtube.com/embed/tXHviS-4ygo.html" class="d-block">
 							<div class="avatar avatar-md z-index-1 position-relative me-2">

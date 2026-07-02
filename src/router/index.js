@@ -35,7 +35,18 @@ import MovieBookings from '@/pages/bookings/MovieBookings.vue'
 // Misc
 import BookingConfirmed from '@/pages/BookingConfirmed.vue'
 import Blog from '@/pages/Blog.vue'
+import BlogDetail from '@/pages/BlogDetail.vue'
 import Contact from '@/pages/Contact.vue'
+import About from '@/pages/About.vue'
+
+// Success screens
+import Success from '@/pages/success/Success.vue'
+
+// Legal & help
+import Terms from '@/pages/legal/Terms.vue'
+import Privacy from '@/pages/legal/Privacy.vue'
+import RefundPolicy from '@/pages/legal/RefundPolicy.vue'
+import Faq from '@/pages/legal/Faq.vue'
 
 // User Dashboard
 import UserProfile from '@/pages/user/Profile.vue'
@@ -45,6 +56,16 @@ import UserMessages from '@/pages/user/Messages.vue'
 import UserBookings from '@/pages/user/Bookings.vue'
 import UserWallet from '@/pages/user/Wallet.vue'
 import UserReviews from '@/pages/user/Reviews.vue'
+
+// Admin Dashboard
+import AdminLayout from '@/layouts/AdminLayout.vue'
+import AdminDashboard from '@/pages/admin/Dashboard.vue'
+import AdminBookings from '@/pages/admin/Bookings.vue'
+import AdminVendors from '@/pages/admin/Vendors.vue'
+import AdminUsers from '@/pages/admin/Users.vue'
+import AdminReviews from '@/pages/admin/Reviews.vue'
+import AdminEarnings from '@/pages/admin/Earnings.vue'
+import AdminSettings from '@/pages/admin/Settings.vue'
 
 // Vendor (Agent) Dashboard
 import VendorDashboard from '@/pages/vendor/Dashboard.vue'
@@ -92,9 +113,21 @@ const routes = [
   // Booking confirmed
   { path: '/booking-confirmed', component: BookingConfirmed },
 
+  // Success screens — /success or /success/:type (payment, booking, listing,
+  // account, withdrawal, password, review). Supports ?ref=&amount=&title=&message=
+  { path: '/success/:type?', component: Success },
+
   // Misc pages
   { path: '/blog', component: Blog },
+  { path: '/blog/:id', component: BlogDetail },
   { path: '/contact', component: Contact },
+  { path: '/about', component: About },
+
+  // Legal & help
+  { path: '/terms', component: Terms },
+  { path: '/privacy', component: Privacy },
+  { path: '/refund-policy', component: RefundPolicy },
+  { path: '/faq', component: Faq },
 
   // User Dashboard
   { path: '/user/profile', component: UserProfile },
@@ -104,6 +137,22 @@ const routes = [
   { path: '/user/bookings', component: UserBookings },
   { path: '/user/wallet', component: UserWallet },
   { path: '/user/reviews', component: UserReviews },
+
+  // Admin Dashboard
+  {
+    path: '/admin',
+    component: AdminLayout,
+    redirect: '/admin/dashboard',
+    children: [
+      { path: 'dashboard', component: AdminDashboard },
+      { path: 'bookings', component: AdminBookings },
+      { path: 'vendors', component: AdminVendors },
+      { path: 'users', component: AdminUsers },
+      { path: 'reviews', component: AdminReviews },
+      { path: 'earnings', component: AdminEarnings },
+      { path: 'settings', component: AdminSettings },
+    ],
+  },
 
   // Vendor (Agent) Dashboard
   { path: '/vendor/dashboard', component: VendorDashboard },

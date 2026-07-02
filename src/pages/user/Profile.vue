@@ -43,7 +43,7 @@ Content START -->
 										<label class="position-relative me-4" for="uploadfile-1" title="Replace this pic">
 											<!-- Avatar place holder -->
 											<span class="avatar avatar-xl">
-												<img id="uploadfile-1-preview" class="avatar-img rounded-circle border border-white border-3 shadow" src="" alt="">
+												<img id="uploadfile-1-preview" class="avatar-img rounded-circle border border-white border-3 shadow" src="/assets/images/avatar/04.jpg" alt="Profile photo">
 											</span>
 										</label>
 										<!-- Upload button -->
@@ -67,13 +67,13 @@ Content START -->
 								<!-- Mobile -->
 								<div class="col-md-6">
 									<label class="form-label">Mobile number<span class="text-danger">*</span></label>
-									<input type="text" class="form-control" value="+2347058710433   " placeholder="Enter your mobile number">
+									<input type="text" class="form-control" value="+234 705 871 0433" placeholder="Enter your mobile number">
 								</div>
 
 								<!-- Nationality -->
 								<div class="col-md-6">
 									<label class="form-label">Nationality<span class="text-danger">*</span></label>
-									<select class="form-select js-choice" v-model="nationality">
+									<select class="form-select" v-model="nationality">
 										<option value="">Select your country</option>
 										<option v-for="country in countries" :key="country" :value="country">{{ country }}</option>
 									</select>
@@ -82,7 +82,7 @@ Content START -->
 								<!-- Date of birth -->
 								<div class="col-md-6">
 									<label class="form-label">Date of Birth<span class="text-danger">*</span></label>
-									<input type="text" class="form-control flatpickr" value="29 Aug 1996" placeholder="Enter date of birth" data-date-format="d M Y">
+									<input type="date" class="form-control" value="1996-08-29">
 								</div>
 
 								<!-- Gender -->
@@ -113,12 +113,12 @@ Content START -->
 								<!-- Address -->
 								<div class="col-12">
 									<label class="form-label">Address</label>
-									<textarea class="form-control" rows="3" spellcheck="false">2119 N Division Ave, New Hampshire, York, United States</textarea>
+									<textarea class="form-control" rows="3" spellcheck="false">14 Adeola Odeku Street, Victoria Island, Lagos, Nigeria</textarea>
 								</div>
 
 								<!-- Button -->
 								<div class="col-12 text-end">
-									<a href="#" class="btn btn-primary mb-0">Save Changes</a>
+									<button type="button" class="btn btn-primary mb-0"><i class="bi bi-check-lg fa-fw me-1"></i>Save Changes</button>
 								</div>
 							</form>
 							<!-- Form END -->
@@ -132,7 +132,7 @@ Content START -->
 						<!-- Card header -->
 						<div class="card-header border-bottom">
 							<h4 class="card-header-title">Update email</h4>
-							<p class="mb-0">Your current email address is <span class="text-primary">example@gmail.com</span></p>
+							<p class="mb-0">Your current email address is <span class="text-primary">hello@gmail.com</span></p>
 						</div>
 
 						<!-- Card body START -->
@@ -143,7 +143,7 @@ Content START -->
 								<input type="email" class="form-control" placeholder="Enter your email id">
 
 								<div class="text-end mt-3">
-									<a href="#" class="btn btn-primary mb-0">Save Email</a>
+									<button type="button" class="btn btn-primary mb-0"><i class="bi bi-check-lg fa-fw me-1"></i>Save Email</button>
 								</div>
 							</form>	
 						</div>
@@ -156,7 +156,7 @@ Content START -->
 						<!-- Card header -->
 						<div class="card-header border-bottom">
 							<h4 class="card-header-title">Update Password</h4>
-							<p class="mb-0">Your current email address is <span class="text-primary">example@gmail.com</span></p>
+							<p class="mb-0">Choose a strong password you haven't used elsewhere</p>
 						</div>
 
 						<!-- Card body START -->
@@ -188,7 +188,7 @@ Content START -->
 							</div>
 
 							<div class="text-end">
-								<a href="#" class="btn btn-primary mb-0">Change Password</a>
+								<button type="button" class="btn btn-primary mb-0"><i class="bi bi-shield-lock fa-fw me-1"></i>Change Password</button>
 							</div>
 						</form>
 						<!-- Card body END -->

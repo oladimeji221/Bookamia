@@ -220,7 +220,7 @@
                       </div>
                       <!-- Name -->
                       <h5 class="card-title mb-1 mt-2">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal">{{ hotel.name }}</a>
+                        <router-link :to="`/categories/hotels/${hotel.id}`">{{ hotel.name }}</router-link>
                       </h5>
                       <small><i class="bi bi-geo-alt me-2"></i>{{ hotel.location }}</small>
                       <!-- Amenities -->

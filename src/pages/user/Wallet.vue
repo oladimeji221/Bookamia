@@ -47,8 +47,8 @@
                     </form>
                     <div class="mt-3">
                       <span class="small text-muted me-2">Quick Add:</span>
-                      <button v-for="amt in quickAmounts" :key="amt" 
-                              class="btn btn-xs btn-light me-1 mb-1" 
+                      <button v-for="amt in quickAmounts" :key="amt"
+                              class="btn btn-sm btn-light me-1 mb-1"
                               @click="fundAmount = amt">
                         ₦{{ amt.toLocaleString() }}
                       </button>
@@ -148,10 +148,5 @@ const getStatusClass = (status) => {
   font-size: 0.85rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-}
-.btn-xs {
-    padding: .25rem .5rem;
-    font-size: .75rem;
-    border-radius: .2rem;
 }
 </style>

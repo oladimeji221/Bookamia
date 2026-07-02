@@ -31,11 +31,11 @@
 				<div class="row g-3">
 					<!-- Google play store button -->
 					<div class="col-6 col-sm-4 col-md-3 col-lg-6">
-						<a href="#"> <img src="/assets/images/element/google-play.svg" alt=""> </a>
+						<a href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal"> <img src="/assets/images/element/google-play.svg" alt="Google Play"> </a>
 					</div>
 					<!-- App store button -->
 					<div class="col-6 col-sm-4 col-md-3 col-lg-6">
-						<a href="#"> <img src="/assets/images/element/app-store.svg" alt=""> </a>
+						<a href="#" data-bs-toggle="modal" data-bs-target="#comingSoonModal"> <img src="/assets/images/element/app-store.svg" alt="App Store"> </a>
 					</div>
 				</div>
 			</div>

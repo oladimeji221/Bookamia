@@ -29,16 +29,16 @@
           <!-- Action buttons -->
           <ul class="list-inline text-end mb-0">
             <li class="list-inline-item">
-              <a href="#" class="btn btn-sm btn-light px-2"><i class="fa-solid fa-fw fa-heart"></i></a>
+              <a href="#" class="btn btn-sm btn-light px-2" data-bs-toggle="modal" data-bs-target="#comingSoonModal"><i class="fa-solid fa-fw fa-heart"></i></a>
             </li>
             <li class="list-inline-item dropdown">
               <a href="#" class="btn btn-sm btn-light px-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa-solid fa-fw fa-share-alt"></i>
               </a>
               <ul class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded">
-                <li><a class="dropdown-item" href="#"><i class="fab fa-twitter-square me-2"></i>Twitter</a></li>
-                <li><a class="dropdown-item" href="#"><i class="fab fa-facebook-square me-2"></i>Facebook</a></li>
-                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-copy me-2"></i>Copy link</a></li>
+                <li><a class="dropdown-item" href="https://x.com/intent/tweet?text=Check%20this%20out%20on%20Bookamia" target="_blank" rel="noopener"><i class="fab fa-twitter-square me-2"></i>Twitter</a></li>
+                <li><a class="dropdown-item" href="https://www.facebook.com/sharer/sharer.php?u=https://www.bookamia.com" target="_blank" rel="noopener"><i class="fab fa-facebook-square me-2"></i>Facebook</a></li>
+                <li><a class="dropdown-item" href="https://wa.me/?text=Check%20this%20out%20on%20Bookamia" target="_blank" rel="noopener"><i class="fab fa-whatsapp me-2"></i>WhatsApp</a></li>
               </ul>
             </li>
           </ul>
@@ -309,7 +309,7 @@
 
                   <!-- Load more -->
                   <div class="text-center">
-                    <a href="#" class="btn btn-primary-soft mb-0">Load more reviews</a>
+                    <a href="#" class="btn btn-primary-soft mb-0" data-bs-toggle="modal" data-bs-target="#comingSoonModal">Load more reviews</a>
                   </div>
                 </div>
               </div>

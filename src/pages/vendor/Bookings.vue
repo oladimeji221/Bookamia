@@ -107,13 +107,13 @@
         </div>
         <div class="card-footer border-top d-flex justify-content-end gap-2">
           <template v-if="selected.status === 'Pending'">
-            <button class="btn btn-danger mb-0" @click="cancel(selected)">Decline</button>
-            <button class="btn btn-primary mb-0" @click="confirm(selected)">Confirm booking</button>
+            <button class="btn btn-danger-soft mb-0" @click="cancel(selected)"><i class="bi bi-x-circle fa-fw me-1"></i>Decline</button>
+            <button class="btn btn-primary mb-0" @click="confirm(selected)"><i class="bi bi-check-circle fa-fw me-1"></i>Confirm booking</button>
           </template>
           <template v-else-if="selected.status === 'Booked'">
-            <button class="btn btn-danger mb-0" @click="cancel(selected)">Cancel booking</button>
+            <button class="btn btn-danger-soft mb-0" @click="cancel(selected)"><i class="bi bi-x-circle fa-fw me-1"></i>Cancel booking</button>
           </template>
-          <button v-else class="btn btn-secondary mb-0" @click="selected = null">Close</button>
+          <button v-else class="btn btn-light mb-0" @click="selected = null">Close</button>
         </div>
       </div>
     </div>

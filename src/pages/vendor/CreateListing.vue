@@ -7,8 +7,8 @@
       <div class="container">
         <div class="row">
           <div class="col-12 text-center">
-            <h1 class="fs-2 mb-2">Add New Listing</h1>
-            <p class="mb-0">Tell us about your hotel, cab, restaurant, event, or cinema. Complete the steps below to publish your listing on Bookamia.</p>
+            <h1 class="fs-2 mb-2">{{ editingListing ? 'Edit Listing' : 'Add New Listing' }}</h1>
+            <p class="mb-0">{{ editingListing ? `You are editing "${editingListing.name}". Update the details below and save your changes.` : 'Tell us about your hotel, cab, restaurant, event, or cinema. Complete the steps below to publish your listing on Bookamia.' }}</p>
           </div>
         </div>
       </div>
@@ -265,7 +265,7 @@
 
                 <div class="d-flex justify-content-between">
                   <button class="btn btn-secondary mb-0" @click="goToStep(2)">Previous</button>
-                  <button class="btn btn-primary mb-0" :disabled="!form.agree" @click="submitListing">Add Listing</button>
+                  <button class="btn btn-primary mb-0" :disabled="!form.agree" @click="submitListing">{{ editingListing ? 'Save Changes' : 'Add Listing' }}</button>
                 </div>
               </div>
               <!-- STEP 3 END -->
@@ -280,8 +280,14 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import VendorMenu from '@/components/VendorMenu.vue';
+import { useVendorStore } from '@/stores/vendor';
+
+const route = useRoute();
+const router = useRouter();
+const store = useVendorStore();
 
 const currentStep = ref(1);
 const goToStep = (n) => {
@@ -398,9 +404,36 @@ const activeCategory = computed(
   () => categories.find((c) => c.value === form.category) || categories[0]
 );
 
+// Edit mode: prefill from an existing listing when ?edit=<id> is present
+const editingListing = computed(() =>
+  route.query.edit ? store.listings.find((l) => l.id === Number(route.query.edit)) : null
+);
+
+const CATEGORY_VALUE = { Hotel: 'hotel', Cab: 'cab', Eatery: 'eatery', Event: 'event', Movie: 'movie' };
+
+onMounted(() => {
+  const l = editingListing.value;
+  if (!l) return;
+  form.category = CATEGORY_VALUE[l.category] || 'hotel';
+  form.name = l.name;
+  form.price = l.price;
+  const [city = '', state = ''] = l.location.split(',').map((s) => s.trim());
+  form.city = city;
+  form.state = state;
+});
+
 const submitListing = () => {
-  // Placeholder: wire up to API later
+  const l = editingListing.value;
+  if (l) {
+    l.name = form.name || l.name;
+    if (form.price) l.price = Number(form.price);
+    if (form.city || form.state) l.location = [form.city, form.state].filter(Boolean).join(', ');
+    alert('Listing updated successfully!');
+    router.push('/vendor/listings');
+    return;
+  }
   alert('Listing submitted for review!');
+  router.push('/vendor/listings');
 };
 </script>
 

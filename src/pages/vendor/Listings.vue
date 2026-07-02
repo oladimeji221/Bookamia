@@ -28,7 +28,7 @@
               <h6>Active Listings</h6>
               <h2 class="text-info">{{ store.activeListings }}</h2>
               <p class="mb-2"><span class="text-danger me-1">{{ store.totalListings }}</span>Total Listings</p>
-              <div class="mt-auto text-primary-hover"><a href="#" class="text-decoration-underline p-0 mb-0">Manage listings</a></div>
+              <div class="mt-auto text-primary-hover"><router-link to="/vendor/create-listing" class="text-decoration-underline p-0 mb-0">Add a new listing</router-link></div>
             </div>
           </div>
 
@@ -54,7 +54,7 @@
                     <option value="">All categories</option>
                     <option v-for="c in categoryList" :key="c" :value="c">{{ c }}</option>
                   </select>
-                  <router-link to="/vendor/create-listing" class="btn btn-sm btn-primary mb-0 flex-shrink-0">Add New</router-link>
+                  <router-link to="/vendor/create-listing" class="btn btn-sm btn-primary-soft mb-0 flex-shrink-0"><i class="bi bi-plus-lg fa-fw me-1"></i>Add New</router-link>
                 </div>
               </div>
 
@@ -63,22 +63,22 @@
                 <div v-for="listing in filteredListings" :key="listing.id" class="card border p-2">
                   <div class="row g-4">
                     <div class="col-md-3 col-lg-2">
-                      <img :src="listing.image" class="card-img rounded-2 h-100 object-fit-cover" alt="Listing image">
+                      <img :src="listing.image" class="card-img rounded-2 listing-img" alt="Listing image">
                     </div>
                     <div class="col-md-9 col-lg-10">
                       <div class="card-body position-relative d-flex flex-column p-0 h-100">
                         <div class="list-inline-item dropdown position-absolute top-0 end-0">
                           <a href="#" class="btn btn-sm btn-round btn-light" data-bs-toggle="dropdown"><i class="bi bi-three-dots-vertical"></i></a>
                           <ul class="dropdown-menu dropdown-menu-end min-w-auto shadow rounded">
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-1"></i>Preview</a></li>
-                            <li><router-link class="dropdown-item" to="/vendor/availability"><i class="bi bi-calendar2-week me-1"></i>Availability</router-link></li>
+                            <li><router-link class="dropdown-item" :to="categoryRoute(listing.category)"><i class="bi bi-eye me-1"></i>Preview</router-link></li>
+                            <li><a class="dropdown-item" href="#" @click.prevent="listing.active = !listing.active"><i class="bi bi-slash-circle me-1"></i>{{ listing.active ? 'Disable' : 'Enable' }}</a></li>
                           </ul>
                         </div>
                         <div class="d-flex align-items-center gap-2 mb-1">
                           <span class="badge" :class="meta[listing.category].badge"><i :class="meta[listing.category].icon + ' me-1'"></i>{{ listing.category }}</span>
                           <span class="badge" :class="listing.active ? 'text-bg-success' : 'text-bg-secondary'">{{ listing.active ? 'Active' : 'Disabled' }}</span>
                         </div>
-                        <h5 class="card-title mb-0 me-5"><a href="#">{{ listing.name }}</a></h5>
+                        <h5 class="card-title mb-0 me-5"><router-link :to="categoryRoute(listing.category)">{{ listing.name }}</router-link></h5>
                         <small><i class="bi bi-geo-alt me-2"></i>{{ listing.location }}</small>
                         <div class="d-sm-flex justify-content-sm-between align-items-center mt-3 mt-md-auto">
                           <div class="d-flex align-items-center">
@@ -86,8 +86,8 @@
                             <span class="mb-0 me-2">{{ meta[listing.category].unit }}</span>
                           </div>
                           <div class="hstack gap-2 mt-3 mt-sm-0">
-                            <a href="#" class="btn btn-sm btn-primary mb-0"><i class="bi bi-pencil-square fa-fw me-1"></i>Edit</a>
-                            <a href="#" class="btn btn-sm btn-danger mb-0"><i class="bi bi-trash3 fa-fw me-1"></i>Delete</a>
+                            <router-link :to="`/vendor/create-listing?edit=${listing.id}`" class="btn btn-sm btn-primary-soft mb-0"><i class="bi bi-pencil-square fa-fw me-1"></i>Edit</router-link>
+                            <button class="btn btn-sm btn-danger-soft mb-0" @click="deleting = listing"><i class="bi bi-trash3 fa-fw me-1"></i>Delete</button>
                           </div>
                         </div>
                       </div>
@@ -101,6 +101,21 @@
         <!-- Listing table END -->
       </div>
     </section>
+
+    <!-- Delete confirm modal -->
+    <div v-if="deleting" class="modal-backdrop-custom" @click.self="deleting = null">
+      <div class="card border-0 shadow modal-card-custom">
+        <div class="card-body text-center p-4">
+          <div class="icon-xl bg-danger bg-opacity-10 text-danger rounded-circle mx-auto mb-3"><i class="bi bi-trash3"></i></div>
+          <h5 class="mb-2">Delete "{{ deleting.name }}"?</h5>
+          <p class="text-muted small mb-4">This permanently removes the listing and it will no longer be bookable. This action cannot be undone.</p>
+          <div class="d-flex justify-content-center gap-2">
+            <button class="btn btn-light mb-0" @click="deleting = null">Cancel</button>
+            <button class="btn btn-danger mb-0" @click="confirmDelete"><i class="bi bi-trash3 fa-fw me-1"></i>Delete listing</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 </template>
 
@@ -112,9 +127,52 @@ import { useVendorStore, CATEGORY_META } from '@/stores/vendor';
 const store = useVendorStore();
 const meta = CATEGORY_META;
 const filter = ref('');
+const deleting = ref(null);
 const categoryList = Object.keys(CATEGORY_META);
 
 const filteredListings = computed(() =>
   filter.value ? store.listings.filter((l) => l.category === filter.value) : store.listings
 );
+
+const categoryRoute = (category) => ({
+  Hotel: '/categories/hotels',
+  Cab: '/categories/cabs',
+  Eatery: '/categories/eatery',
+  Event: '/categories/events',
+  Movie: '/categories/movies',
+}[category] || '/');
+
+const confirmDelete = () => {
+  store.deleteListing(deleting.value.id);
+  deleting.value = null;
+};
 </script>
+
+<style scoped>
+.listing-img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+@media (max-width: 767.98px) {
+  .listing-img {
+    height: 180px;
+  }
+}
+.modal-backdrop-custom {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1055;
+  padding: 1rem;
+}
+.modal-card-custom {
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+</style>

@@ -43,6 +43,22 @@ export const useVendorStore = defineStore('vendor', {
       { id: 3, name: 'Dennis Barrett', avatar: '/assets/images/avatar/05.jpg', date: 'Nov 10, 2026', rating: 3, listing: 'Toyota Camry — Airport Pickup', comment: 'Driver was punctual and polite, but the car AC was a little weak. Decent ride for the price.', addressed: false },
     ],
 
+    // Monthly sales for the dashboard chart (₦).
+    monthlySales: [
+      { month: 'Jan', value: 6200000 },
+      { month: 'Feb', value: 7400000 },
+      { month: 'Mar', value: 6900000 },
+      { month: 'Apr', value: 8800000 },
+      { month: 'May', value: 9600000 },
+      { month: 'Jun', value: 11200000 },
+      { month: 'Jul', value: 10400000 },
+      { month: 'Aug', value: 9800000 },
+      { month: 'Sep', value: 8900000 },
+      { month: 'Oct', value: 10700000 },
+      { month: 'Nov', value: 12100000 },
+      { month: 'Dec', value: 12825000 },
+    ],
+
     // Wallet — single source of truth for all balance figures.
     wallet: {
       mainBalance: 32000000, // available to withdraw
@@ -88,6 +104,9 @@ export const useVendorStore = defineStore('vendor', {
   },
 
   actions: {
+    deleteListing(id) {
+      this.listings = this.listings.filter((l) => l.id !== id)
+    },
     confirmBooking(id) {
       const b = this.bookings.find((x) => x.id === id)
       if (b) { b.status = 'Booked'; b.statusClass = 'success' }

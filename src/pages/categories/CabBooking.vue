@@ -167,7 +167,7 @@
                         placeholder="Enter your last name" v-model="form.lastName">
                     </div>
                     <div class="col-12">
-                      <a href="#" class="btn btn-link mb-0 p-0">
+                      <a href="#" class="btn btn-link mb-0 p-0" data-bs-toggle="modal" data-bs-target="#comingSoonModal">
                         <i class="fa-solid fa-plus me-2"></i>Add Another Passenger
                       </a>
                     </div>
@@ -351,7 +351,7 @@
                 <div class="card-footer p-4 pt-0">
                   <p class="mb-0">
                     By proceeding, you accept Bookamia
-                    <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                    <router-link to="/terms">Terms of Service</router-link> and <router-link to="/privacy">Privacy Policy</router-link>
                   </p>
                 </div>
               </div>

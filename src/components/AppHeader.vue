@@ -70,7 +70,7 @@
                       <img class="avatar-img rounded-circle shadow" src="/assets/images/avatar/04.jpg" alt="avatar">
                     </div>
                     <div>
-                      <a class="h6 mt-2 mt-sm-0" href="#">John Doe</a>
+                      <RouterLink class="h6 mt-2 mt-sm-0" to="/user/profile">John Doe</RouterLink>
                       <p class="small m-0">hello@gmail.com</p>
                     </div>
                   </div>
@@ -94,6 +94,11 @@
                 <li><RouterLink class="dropdown-item" to="/vendor/bookings"><i class="bi bi-bookmark-heart fa-fw me-2"></i>Bookings</RouterLink></li>
                 <li><RouterLink class="dropdown-item" to="/vendor/earnings"><i class="bi bi-graph-up-arrow fa-fw me-2"></i>Earnings</RouterLink></li>
                 <li><RouterLink class="dropdown-item" to="/vendor/create-listing"><i class="bi bi-plus-circle fa-fw me-2"></i>Add Listing</RouterLink></li>
+
+                <!-- Links: Admin Dashboard (testing) -->
+                <li><hr class="dropdown-divider"></li>
+                <li><span class="dropdown-header small text-muted text-uppercase ps-3">Admin (testing)</span></li>
+                <li><RouterLink class="dropdown-item" to="/admin/dashboard"><i class="bi bi-shield-lock fa-fw me-2"></i>Admin Dashboard</RouterLink></li>
 
                 <!-- Sign out -->
                 <li><hr class="dropdown-divider"></li>

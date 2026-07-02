@@ -213,7 +213,7 @@
                 </div>
                 <div class="card-footer p-4 pt-0 mt-3">
                   <p class="mb-0">By confirming, you accept Bookamia
-                    <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                    <router-link to="/terms">Terms of Service</router-link> and <router-link to="/privacy">Privacy Policy</router-link>
                   </p>
                 </div>
               </div>

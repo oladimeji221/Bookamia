@@ -44,7 +44,7 @@
                         </div>
                         <div class="text-end">
                           <span class="small text-muted d-block">{{ review.date }}</span>
-                          <a href="#" class="btn btn-sm btn-light mt-2 mb-0">Edit</a>
+                          <a href="#" class="btn btn-sm btn-primary-soft mt-2 mb-0" @click.prevent><i class="bi bi-pencil-square fa-fw me-1"></i>Edit</a>
                         </div>
                       </div>
                       <p class="mt-3 mb-0">{{ review.comment }}</p>

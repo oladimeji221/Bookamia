@@ -93,8 +93,8 @@ const activeChatId = ref(1)
 const newMessage = ref('')
 
 const chats = ref([
-  { id: 1, name: 'Support Team', lastMessage: 'How can we help you today?', avatar: '' },
-  { id: 2, name: 'Victoria Island Hotel', lastMessage: 'Your booking is confirmed.', avatar: '' }
+  { id: 1, name: 'Support Team', lastMessage: 'How can we help you today?', avatar: '/assets/images/avatar/01.jpg' },
+  { id: 2, name: 'Victoria Island Hotel', lastMessage: 'Your booking is confirmed.', avatar: '/assets/images/avatar/02.jpg' }
 ])
 
 const messages = ref([
