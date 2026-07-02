@@ -76,16 +76,28 @@
                   </div>
                 </li>
 
-                <!-- Links -->
-                <li> <hr class="dropdown-divider"></li>
+                <!-- Links: User Account -->
+                <li><hr class="dropdown-divider"></li>
+                <li><span class="dropdown-header small text-muted text-uppercase ps-3">My Account</span></li>
                 <li><RouterLink class="dropdown-item" to="/user/profile"><i class="bi bi-person fa-fw me-2"></i>My Profile</RouterLink></li>
                 <li><RouterLink class="dropdown-item" to="/user/bookings"><i class="bi bi-ticket-perforated fa-fw me-2"></i>My Bookings</RouterLink></li>
                 <li><RouterLink class="dropdown-item" to="/user/reviews"><i class="bi bi-star fa-fw me-2"></i>My Reviews</RouterLink></li>
                 <li><RouterLink class="dropdown-item" to="/user/wallet"><i class="bi bi-wallet fa-fw me-2"></i>Wallet</RouterLink></li>
                 <li><RouterLink class="dropdown-item" to="/user/wishlists"><i class="bi bi-heart fa-fw me-2"></i>My Wishlist</RouterLink></li>
                 <li><RouterLink class="dropdown-item" to="/user/settings"><i class="bi bi-gear fa-fw me-2"></i>Settings</RouterLink></li>
-                <li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help Center</a></li>
-                <li><RouterLink class="dropdown-item bg-danger-soft-hover" to="/auth/login"><i class="bi bi-power fa-fw me-2"></i>Sign Out</RouterLink></li>
+
+                <!-- Links: Agent Dashboard -->
+                <li><hr class="dropdown-divider"></li>
+                <li><span class="dropdown-header small text-muted text-uppercase ps-3">Agent Dashboard</span></li>
+                <li><RouterLink class="dropdown-item" to="/vendor/dashboard"><i class="bi bi-house-door fa-fw me-2"></i>Dashboard</RouterLink></li>
+                <li><RouterLink class="dropdown-item" to="/vendor/listings"><i class="bi bi-journals fa-fw me-2"></i>My Listings</RouterLink></li>
+                <li><RouterLink class="dropdown-item" to="/vendor/bookings"><i class="bi bi-bookmark-heart fa-fw me-2"></i>Bookings</RouterLink></li>
+                <li><RouterLink class="dropdown-item" to="/vendor/earnings"><i class="bi bi-graph-up-arrow fa-fw me-2"></i>Earnings</RouterLink></li>
+                <li><RouterLink class="dropdown-item" to="/vendor/create-listing"><i class="bi bi-plus-circle fa-fw me-2"></i>Add Listing</RouterLink></li>
+
+                <!-- Sign out -->
+                <li><hr class="dropdown-divider"></li>
+                <li><RouterLink class="dropdown-item" to="/auth/login"><i class="bi bi-power fa-fw me-2"></i>Sign Out</RouterLink></li>
               </ul>
             </li>
             <!-- Profile Dropdown END -->

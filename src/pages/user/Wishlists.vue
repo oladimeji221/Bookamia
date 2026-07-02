@@ -44,7 +44,7 @@
                                 <p class="small mb-0"><i class="bi bi-geo-alt me-2"></i>{{ item.location }}</p>
                                 <div class="d-flex justify-content-between align-items-center mt-auto pt-3">
                                    <h6 class="mb-0 text-primary">₦{{ item.price.toLocaleString() }} <span class="small text-muted fw-light">/{{ item.unit }}</span></h6>
-                                   <router-link to="/" class="btn btn-sm btn-dark mb-0">Book Now</router-link>
+                                   <router-link to="/" class="btn btn-sm btn-primary mb-0">Book Now</router-link>
                                 </div>
                              </div>
                           </div>
@@ -63,7 +63,7 @@
                   <div v-else class="bg-mode shadow p-4 rounded overflow-hidden m-4 text-center">
                      <h6 class="mb-2">Your wishlist is empty</h6>
                      <p>Start saving your favorite hotels, eateries, and events!</p>
-                     <router-link to="/" class="btn btn-primary-soft mb-0">Browse categories</router-link>
+                     <router-link to="/" class="btn btn-primary mb-0">Browse categories</router-link>
                   </div>
                 </div>
               </div>

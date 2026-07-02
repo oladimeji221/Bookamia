@@ -46,6 +46,14 @@ import UserBookings from '@/pages/user/Bookings.vue'
 import UserWallet from '@/pages/user/Wallet.vue'
 import UserReviews from '@/pages/user/Reviews.vue'
 
+// Vendor (Agent) Dashboard
+import VendorDashboard from '@/pages/vendor/Dashboard.vue'
+import VendorListings from '@/pages/vendor/Listings.vue'
+import VendorBookings from '@/pages/vendor/Bookings.vue'
+import VendorEarnings from '@/pages/vendor/Earnings.vue'
+import VendorReviews from '@/pages/vendor/Reviews.vue'
+import VendorSettings from '@/pages/vendor/Settings.vue'
+import VendorCreateListing from '@/pages/vendor/CreateListing.vue'
 
 
 const routes = [
@@ -96,6 +104,15 @@ const routes = [
   { path: '/user/bookings', component: UserBookings },
   { path: '/user/wallet', component: UserWallet },
   { path: '/user/reviews', component: UserReviews },
+
+  // Vendor (Agent) Dashboard
+  { path: '/vendor/dashboard', component: VendorDashboard },
+  { path: '/vendor/listings', component: VendorListings },
+  { path: '/vendor/bookings', component: VendorBookings },
+  { path: '/vendor/earnings', component: VendorEarnings },
+  { path: '/vendor/reviews', component: VendorReviews },
+  { path: '/vendor/settings', component: VendorSettings },
+  { path: '/vendor/create-listing', component: VendorCreateListing },
 ]
 
 

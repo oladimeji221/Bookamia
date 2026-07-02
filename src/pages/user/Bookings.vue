@@ -103,7 +103,7 @@
                           <div class="col-md-9">
                             <h6>Looks like you have no {{ activeStatusLabel.toLowerCase() }} bookings</h6>
                             <h4 class="mb-2">When you book, your trip will be shown here.</h4>
-                            <router-link to="/" class="btn btn-primary-soft mb-0">Start booking now</router-link>
+                            <router-link to="/" class="btn btn-primary mb-0">Start booking now</router-link>
                           </div>
                           <div class="col-md-3 text-end">
                             <img src="" class="mb-n5" alt="">

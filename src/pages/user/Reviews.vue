@@ -62,7 +62,7 @@
                   <div v-else class="text-center p-5">
                     <i class="bi bi-star fs-1 text-muted"></i>
                     <p class="mt-2">You haven't written any reviews yet.</p>
-                    <router-link to="/user/bookings" class="btn btn-primary-soft mb-0">Review a past booking</router-link>
+                    <router-link to="/user/bookings" class="btn btn-primary mb-0">Review a past booking</router-link>
                   </div>
                 </div>
               </div>
