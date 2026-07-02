@@ -187,7 +187,7 @@
                   <!-- Image -->
                   <div class="col-md-5 position-relative">
                     <span class="badge text-bg-success position-absolute top-0 start-0 m-2 z-1">Open</span>
-                    <img :src="place.image" class="card-img rounded-2" :alt="place.name" style="height: 100%; min-height: 200px; object-fit: cover;">
+                    <img :src="place.image" class="card-img rounded-2" :alt="place.name" style="height: 230px; object-fit: cover;">
                   </div>
                   <!-- Body -->
                   <div class="col-md-7">
