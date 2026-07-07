@@ -19,7 +19,7 @@ const route = useRoute()
 
 const tabs = [
   { label: 'Home', to: '/', icon: 'bi bi-house-door' },
-  { label: 'My Trips', to: '/user/bookings', icon: 'bi bi-briefcase' },
+  { label: 'My Bookings', to: '/user/bookings', icon: 'bi bi-briefcase' },
   { label: 'Wishlist', to: '/user/wishlists', icon: 'bi bi-heart' },
   { label: 'Account', to: '/user/profile', icon: 'bi bi-person-circle' },
 ]
