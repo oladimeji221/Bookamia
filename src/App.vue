@@ -3,6 +3,7 @@
     <AppHeader v-if="!isAuthPage && !isAdminPage" />
     <RouterView />
     <AppFooter v-if="!isAuthPage && !isAdminPage" />
+    <MobileNavbar v-if="!isAuthPage && !isAdminPage" />
 
     <!-- Floating WhatsApp Button -->
     <a v-if="!isAdminPage" href="https://wa.me/" target="_blank" class="whatsapp-float" title="Chat with us on WhatsApp">
@@ -28,14 +29,20 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import AppHeader from '@/components/AppHeader.vue'
 import AppFooter from '@/components/AppFooter.vue'
+import MobileNavbar from '@/components/MobileNavbar.vue'
 
 const route = useRoute()
 const isAuthPage = computed(() => route.path.startsWith('/auth'))
 const isAdminPage = computed(() => route.path.startsWith('/admin'))
+
+// Theme CSS pads the footer above the fixed mobile navbar when this class is set
+watchEffect(() => {
+  document.body.classList.toggle('has-navbar-mobile', !isAuthPage.value && !isAdminPage.value)
+})
 </script>
 
 <style>
@@ -69,5 +76,15 @@ const isAdminPage = computed(() => route.path.startsWith('/admin'))
 .whatsapp-float:hover {
   transform: scale(1.1);
   color: white;
+}
+
+/* Keep the WhatsApp button above the fixed mobile bottom navbar */
+@media (max-width: 575.98px) {
+  .whatsapp-float {
+    bottom: 84px;
+    width: 52px;
+    height: 52px;
+    font-size: 26px;
+  }
 }
 </style>
